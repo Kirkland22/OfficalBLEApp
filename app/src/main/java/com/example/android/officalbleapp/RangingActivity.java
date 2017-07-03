@@ -36,7 +36,6 @@ public class RangingActivity extends Activity implements BeaconConsumer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranging);
 
-
         Bundle b = this.getIntent().getExtras();
         if (b != null)
             customer = (Customer)b.getSerializable("Customer");
@@ -67,6 +66,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
 
     @Override
     public void onBeaconServiceConnect() {
+        changeToRed();
 
         beaconManager.addRangeNotifier(new RangeNotifier() {
             @Override

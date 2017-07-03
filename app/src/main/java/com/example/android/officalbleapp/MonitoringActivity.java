@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.altbeacon.beacon.BeaconManager;
 
@@ -89,48 +91,14 @@ public class MonitoringActivity extends Activity {
     }
 
     public void onRangingClicked(View view) {
-        EditText eUsername = (EditText)MonitoringActivity.this.findViewById(R.id.login_username);
-        EditText ePassword = (EditText)MonitoringActivity.this.findViewById(R.id.login_password);
+        EditText eUsername = (EditText) MonitoringActivity.this.findViewById(R.id.login_username);
+        EditText ePassword = (EditText) MonitoringActivity.this.findViewById(R.id.login_password);
 
-        if(eUsername.getText().toString().equals(SEAN_USERNAME) && ePassword.getText().toString().equals(SEAN_PASSWORD)) {
-            Customer Sean  = new Customer("Sean",0001,345,20,false);
-            Intent i = new Intent();
-            Bundle b = new Bundle();
-
-            b.putSerializable("Customer",Sean);
-            i.putExtras(b);
-            i.setClass(this,RangingActivity.class);
-            //Intent myIntent = new Intent(this, RangingActivity.class);
-            //myIntent.putExtra("Customer",Sean);
-            startActivity(i);
-        }
-
-        if(eUsername.getText().toString().equals(BRENDON_USERNAME) && ePassword.getText().toString().equals(BRENDON_PASSWORD)) {
-            Customer brendon  = new Customer("Brendon",0002,1345,-20,false);
-            Intent i = new Intent();
-            Bundle b = new Bundle();
-
-            b.putSerializable("Customer",brendon);
-            i.putExtras(b);
-            i.setClass(this,RangingActivity.class);
-            //Intent myIntent = new Intent(this, RangingActivity.class);
-            //myIntent.putExtra("Customer",Sean);
-            startActivity(i);
-        }
-
-        if(eUsername.getText().toString().equals(HOZAIFA_USERNAME) && ePassword.getText().toString().equals(HOZAIFA_PASSWORD)) {
-            Customer hozaifa  = new Customer("Hozaifa",0003,100345,20,true);
-            Intent i = new Intent();
-            Bundle b = new Bundle();
-
-            b.putSerializable("Customer",hozaifa);
-            i.putExtras(b);
-            i.setClass(this,RangingActivity.class);
-            //Intent myIntent = new Intent(this, RangingActivity.class);
-            //myIntent.putExtra("Customer",Sean);
-            startActivity(i);
-        }
+        Login(eUsername,ePassword);
+        eUsername.setText("");
+        ePassword.setText("");
     }
+
     /*
     @Override
     public void onResume() {
@@ -193,5 +161,57 @@ public class MonitoringActivity extends Activity {
         });
     }
     */
+
+    public void Login(EditText eUsername,  EditText ePassword) {
+
+        if(eUsername.getText().toString().equals(SEAN_USERNAME) && ePassword.getText().toString().equals(SEAN_PASSWORD)) {
+            Customer Sean  = new Customer("Sean",0001,345,20,false);
+            Intent i = new Intent();
+            Bundle b = new Bundle();
+
+            b.putSerializable("Customer",Sean);
+            i.putExtras(b);
+            i.setClass(this,RangingActivity.class);
+            //Intent myIntent = new Intent(this, RangingActivity.class);
+            //myIntent.putExtra("Customer",Sean);
+            startActivity(i);
+        }
+
+        else if(eUsername.getText().toString().equals(BRENDON_USERNAME) && ePassword.getText().toString().equals(BRENDON_PASSWORD)) {
+            Customer brendon  = new Customer("Brendon",0002,1345,-20,false);
+            Intent i = new Intent();
+            Bundle b = new Bundle();
+
+            b.putSerializable("Customer",brendon);
+            i.putExtras(b);
+            i.setClass(this,RangingActivity.class);
+            //Intent myIntent = new Intent(this, RangingActivity.class);
+            //myIntent.putExtra("Customer",Sean);
+            startActivity(i);
+        }
+
+        else if(eUsername.getText().toString().equals(HOZAIFA_USERNAME) && ePassword.getText().toString().equals(HOZAIFA_PASSWORD)) {
+            Customer hozaifa  = new Customer("Hozaifa",0003,100345,20,true);
+            Intent i = new Intent();
+            Bundle b = new Bundle();
+
+            b.putSerializable("Customer",hozaifa);
+            i.putExtras(b);
+            i.setClass(this,RangingActivity.class);
+            //Intent myIntent = new Intent(this, RangingActivity.class);
+            //myIntent.putExtra("Customer",Sean);
+            startActivity(i);
+        }
+
+        else
+        {
+            Context context = getApplicationContext();
+            CharSequence text = "Username or Password incorrect";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+    }
+    }
 
 }
