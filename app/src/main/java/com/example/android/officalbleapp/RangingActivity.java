@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -25,7 +26,7 @@ import java.util.Collection;
 public class RangingActivity extends Activity implements BeaconConsumer {
     protected static final String TAG = "RangingActivity";
     RelativeLayout mScreen;
-    EditText mText;
+    TextView mText;
     private BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
     // changes
     @Override
@@ -33,7 +34,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranging);
         mScreen = (RelativeLayout) findViewById(R.id.myScreen);
-        mText = (EditText) findViewById(R.id.rangingText);
+        mText = (TextView) findViewById(R.id.textRangeView);
         RangedBeacon.setSampleExpirationMilliseconds(500);
 
         beaconManager.bind(this);
@@ -68,7 +69,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
                     Beacon firstBeacon = beacons.iterator().next();
                     Log.i("Beacon ID3", "Beacon Minor: " + firstBeacon.getId3());
                     if(firstBeacon.getId3().toInt() == 3){
-                        logToDisplay("The first beacon " + firstBeacon.toString() + " is about " + firstBeacon.getDistance() + " meters away.");
+                        //logToDisplay("The first beacon " + firstBeacon.toString() + " is about " + firstBeacon.getDistance() + " meters away.");
 
                         if( firstBeacon.getDistance() < 1  ) {
                                 changeToGreen();
@@ -94,8 +95,8 @@ public class RangingActivity extends Activity implements BeaconConsumer {
     private void logToDisplay(final String line) {
         runOnUiThread(new Runnable() {
             public void run() {
-                EditText editText = (EditText)RangingActivity.this.findViewById(R.id.rangingText);
-                editText.setText(line+"\n");
+                TextView textView = (TextView) RangingActivity.this.findViewById(R.id.textRangeView);
+                textView.setText(line+"\n");
             }
         });
     }
@@ -124,8 +125,9 @@ public class RangingActivity extends Activity implements BeaconConsumer {
             public void run() {
                 mScreen.setBackgroundColor(0xffff0000);
                 mText.setBackgroundColor(0xffff0000);
-            }
-        });
+                logToDisplay("LOCKED");
+    }
+});
     }
     // Changes the background and text of this Activity to Green
         private void changeToGreen() {
@@ -133,6 +135,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
                 public void run() {
                     mScreen.setBackgroundColor(0xff00ff00);
                     mText.setBackgroundColor(0xff00ff00);
+                    logToDisplay("UNLOCKED");
                 }
             });
 

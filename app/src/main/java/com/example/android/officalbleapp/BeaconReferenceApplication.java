@@ -76,7 +76,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
             if (monitoringActivity != null) {
                 // If the Monitoring Activity is visible, we log info about the beacons we have
                 // seen on its display
-                monitoringActivity.logToDisplay("I see a beacon again" );
+                //monitoringActivity.logToDisplay("I see a beacon again" );
             } else {
                 // If we have already seen beacons before, but the monitoring activity is not in
                 // the foreground, we send a notification to the user on subsequent detections.
@@ -91,14 +91,14 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     @Override
     public void didExitRegion(Region region) {
         if (monitoringActivity != null) {
-            monitoringActivity.logToDisplay("I no longer see a beacon.");
+            //monitoringActivity.logToDisplay("I no longer see a beacon.");
         }
     }
 
     @Override
     public void didDetermineStateForRegion(int state, Region region) {
         if (monitoringActivity != null) {
-            monitoringActivity.logToDisplay("I have just switched from seeing/not seeing beacons: " + state);
+            //monitoringActivity.logToDisplay("I have just switched from seeing/not seeing beacons: " + state);
         }
     }
 

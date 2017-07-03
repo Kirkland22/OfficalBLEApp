@@ -6,19 +6,15 @@
     android:background="#ffff0000"
     android:id="@+id/myScreen">
 
-    <EditText
-        android:id="@+id/rangingText"
+
+    <TextView
         android:background="#ffff0000"
+        android:id="@+id/textRangeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="14dp"
-        android:ems="10"
-        android:gravity="left|top"
-        android:inputType="textMultiLine" >
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textStyle="bold"
+        android:textSize="70dp"/>
 
-    </EditText>
-    
 </RelativeLayout>

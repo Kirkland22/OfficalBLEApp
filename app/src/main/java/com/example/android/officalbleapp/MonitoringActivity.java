@@ -31,7 +31,7 @@ public class MonitoringActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monitoring);
         verifyBluetooth();
-        logToDisplay("Welcome to Chase");
+        //logToDisplay("Welcome to Chase");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // Android M Permission check
@@ -136,6 +136,7 @@ public class MonitoringActivity extends Activity {
 
     }
 
+    /*
     public void logToDisplay(final String line) {
         runOnUiThread(new Runnable() {
             public void run() {
@@ -145,5 +146,6 @@ public class MonitoringActivity extends Activity {
             }
         });
     }
+    */
 
 }
