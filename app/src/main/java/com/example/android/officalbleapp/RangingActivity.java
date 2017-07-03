@@ -3,28 +3,38 @@ package com.example.android.officalbleapp;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.EditText;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
+import org.altbeacon.beacon.service.RangedBeacon;
 
 import java.util.Collection;
 
 public class RangingActivity extends Activity implements BeaconConsumer {
     protected static final String TAG = "RangingActivity";
+    RelativeLayout mScreen;
+    EditText mText;
     private BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
     // changes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranging);
+        mScreen = (RelativeLayout) findViewById(R.id.myScreen);
+        mText = (EditText) findViewById(R.id.rangingText);
+        RangedBeacon.setSampleExpirationMilliseconds(500);
 
         beaconManager.bind(this);
     }
@@ -49,17 +59,26 @@ public class RangingActivity extends Activity implements BeaconConsumer {
 
     @Override
     public void onBeaconServiceConnect() {
-        beaconManager.setRangeNotifier(new RangeNotifier() {
+
+        beaconManager.addRangeNotifier(new RangeNotifier() {
             @Override
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
                 if (beacons.size() > 0) {
                     //EditText editText = (EditText)RangingActivity.this.findViewById(R.id.rangingText);
                     Beacon firstBeacon = beacons.iterator().next();
                     Log.i("Beacon ID3", "Beacon Minor: " + firstBeacon.getId3());
-                    Log.i("None", "None");
                     if(firstBeacon.getId3().toInt() == 3){
-                        createNotification("The first beacon " + firstBeacon.toString() + " is about " + firstBeacon.getDistance() + " meters away.");
                         logToDisplay("The first beacon " + firstBeacon.toString() + " is about " + firstBeacon.getDistance() + " meters away.");
+
+                        if( firstBeacon.getDistance() < 1  ) {
+                                changeToGreen();
+                        }
+
+                        else {
+                                changeToRed();
+                        }
+
+
                     }
 
                 }
@@ -88,8 +107,8 @@ public class RangingActivity extends Activity implements BeaconConsumer {
             public void run() {
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(_this);
                 mBuilder.setSmallIcon(R.drawable.ic_launcher);
-                mBuilder.setContentTitle("Beacon Alert!");
-                mBuilder.setContentText("A nearby beacon has been detected! " + line);
+                mBuilder.setContentTitle("Welcome to Chase!");
+                mBuilder.setContentText(line);
 
                 NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -98,4 +117,28 @@ public class RangingActivity extends Activity implements BeaconConsumer {
             }
         });
     }
-}
+
+    // Changes the background and text of this Activity to Red
+    private void changeToRed() {
+        RangingActivity.this.runOnUiThread(new Runnable() {
+            public void run() {
+                mScreen.setBackgroundColor(0xffff0000);
+                mText.setBackgroundColor(0xffff0000);
+            }
+        });
+    }
+    // Changes the background and text of this Activity to Green
+        private void changeToGreen() {
+            RangingActivity.this.runOnUiThread(new Runnable() {
+                public void run() {
+                    mScreen.setBackgroundColor(0xff00ff00);
+                    mText.setBackgroundColor(0xff00ff00);
+                }
+            });
+
+    }
+
+
+    }
+
+

@@ -87,6 +87,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
 
     }
 
+
     @Override
     public void didExitRegion(Region region) {
         if (monitoringActivity != null) {

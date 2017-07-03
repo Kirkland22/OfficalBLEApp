@@ -2,26 +2,28 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.officalbleapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:launchMode="singleInstance"
+        android:name=".BeaconReferenceApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name="BeaconReferenceApplication">
+        android:launchMode="singleInstance"
+        android:theme="@style/AppTheme">
         <activity
-            android:name="com.example.android.officalbleapp.MonitoringActivity"
-            android:label="@string/app_name" >
+            android:name=".MonitoringActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.android.officalbleapp.RangingActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:name=".RangingActivity"
+            android:label="@string/app_name"></activity>
+        <activity android:name=".GreenScreenActivity"></activity>
     </application>
 
 </manifest>

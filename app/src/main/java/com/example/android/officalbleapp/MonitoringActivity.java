@@ -31,7 +31,7 @@ public class MonitoringActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monitoring);
         verifyBluetooth();
-        logToDisplay("Application just launched");
+        logToDisplay("Welcome to Chase");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // Android M Permission check
@@ -85,7 +85,7 @@ public class MonitoringActivity extends Activity {
         Intent myIntent = new Intent(this, RangingActivity.class);
         this.startActivity(myIntent);
     }
-
+    /*
     @Override
     public void onResume() {
         super.onResume();
@@ -97,7 +97,7 @@ public class MonitoringActivity extends Activity {
         super.onPause();
         ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(null);
     }
-
+    */
     private void verifyBluetooth() {
 
         try {

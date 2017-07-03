@@ -1,27 +1,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MonitoringActivity" >
-    <TextView
-        android:id="@+id/textView1"
+    tools:context=".MonitoringActivity"
+    android:background="#034FA0">
+
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="17dp"
-        android:text="Monitoring Events:" />
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        android:src="@drawable/chase_logo" />
 
     <EditText
         android:id="@+id/monitoringText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="36dp"
         android:ems="10"
         android:gravity="left|top"
-        android:inputType="textMultiLine" >
+        android:inputType="textMultiLine"
+        android:layout_below="@+id/imageView2"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="35dp">
         <requestFocus />
     </EditText>
 
@@ -29,9 +33,12 @@
         android:id="@+id/Button01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:onClick="onRangingClicked"
+        android:text="Start Ranging"
+        android:layout_marginTop="33dp"
         android:layout_below="@+id/monitoringText"
-        android:text="Start Ranging" />
+        android:layout_centerHorizontal="true" />
+
+
 
 </RelativeLayout>
