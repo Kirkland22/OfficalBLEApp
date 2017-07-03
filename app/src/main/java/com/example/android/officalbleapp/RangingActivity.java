@@ -13,6 +13,9 @@ import android.widget.EditText;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import com.android.volley.*;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -21,10 +24,16 @@ import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.service.RangedBeacon;
 
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RangingActivity extends Activity implements BeaconConsumer {
     protected static final String TAG = "RangingActivity";
+    RequestQueue queue;
     RelativeLayout mScreen;
     TextView mText;
     private BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
@@ -35,13 +44,14 @@ public class RangingActivity extends Activity implements BeaconConsumer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranging);
+        queue = Volley.newRequestQueue(this);
 
         Bundle b = this.getIntent().getExtras();
         if (b != null)
             customer = (Customer)b.getSerializable("Customer");
         mScreen = (RelativeLayout) findViewById(R.id.myScreen);
         mText = (TextView) findViewById(R.id.textRangeView);
-        RangedBeacon.setSampleExpirationMilliseconds(500);
+        //RangedBeacon.setSampleExpirationMilliseconds(500);
 
         beaconManager.bind(this);
     }
@@ -66,7 +76,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
 
     @Override
     public void onBeaconServiceConnect() {
-        changeToRed();
+        //changeToRed();
 
         beaconManager.addRangeNotifier(new RangeNotifier() {
             @Override
@@ -77,13 +87,20 @@ public class RangingActivity extends Activity implements BeaconConsumer {
                     Log.i("Beacon ID3", "Beacon Minor: " + firstBeacon.getId3());
                     if(firstBeacon.getId3().toInt() == 3){
                         //logToDisplay("The first beacon " + firstBeacon.toString() + " is about " + firstBeacon.getDistance() + " meters away.");
+                        double distance = firstBeacon.getDistance();
+                        if( distance <= 1  ) {
+                            changeToGreen(distance);
+                            postData(customer.getCustomerName(),distance);
+                        }
 
-                        if( firstBeacon.getDistance() < 1  ) {
-                            changeToGreen();
+                        else if (distance > 2 && distance < 4) {
+                            changeToRed(distance);
+                            postData(customer.getCustomerName(),distance);
                         }
 
                         else {
-                                changeToRed();
+                            changeToRed(distance);
+                            postData(customer.getCustomerName(),distance);
                         }
 
 
@@ -103,7 +120,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
         runOnUiThread(new Runnable() {
             public void run() {
                 TextView textView = (TextView) RangingActivity.this.findViewById(R.id.textRangeView);
-                textView.setText(customer.getCustomerName() + ":" + line+"\n");
+                textView.setText(line);
             }
         });
     }
@@ -127,27 +144,56 @@ public class RangingActivity extends Activity implements BeaconConsumer {
     }
 
     // Changes the background and text of this Activity to Red
-    private void changeToRed() {
+    private void changeToRed(final Double d) {
         RangingActivity.this.runOnUiThread(new Runnable() {
             public void run() {
                 mScreen.setBackgroundColor(0xffff0000);
                 mText.setBackgroundColor(0xffff0000);
-                logToDisplay("LOCKED");
+                logToDisplay(d.toString());
     }
 });
     }
     // Changes the background and text of this Activity to Green
-        private void changeToGreen() {
+        private void changeToGreen(final Double d) {
             RangingActivity.this.runOnUiThread(new Runnable() {
                 public void run() {
                     mScreen.setBackgroundColor(0xff00ff00);
                     mText.setBackgroundColor(0xff00ff00);
-                    logToDisplay("UNLOCKED");
+                    logToDisplay(d.toString());
                 }
             });
 
     }
 
+    public void postData(final String name, final Double d) {
+        StringRequest sr = new StringRequest(Request.Method.POST,"http://beaconapp-abdallahozaifa.c9users.io:8080/beaconInfo", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("name", name);
+                params.put("distance", d.toString());
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        queue.add(sr);
+    }
 
     }
 

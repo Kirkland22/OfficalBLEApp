@@ -43,5 +43,18 @@ private TextView tCustomerBalance;
 
     }
 
+    public void onTransactionClicked(View view) {
+        Intent i = new Intent();
+        Bundle b = new Bundle();
+
+        b.putSerializable("Customer",customer);
+        i.putExtras(b);
+        i.setClass(this,TransactionActivity.class);
+
+        i.putExtra("Customer",customer);
+        startActivity(i);
+
+    }
+
 
 }
