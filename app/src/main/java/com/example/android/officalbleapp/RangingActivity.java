@@ -28,11 +28,18 @@ public class RangingActivity extends Activity implements BeaconConsumer {
     RelativeLayout mScreen;
     TextView mText;
     private BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
+    Customer customer;
+
     // changes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranging);
+
+
+        Bundle b = this.getIntent().getExtras();
+        if (b != null)
+            customer = (Customer)b.getSerializable("Customer");
         mScreen = (RelativeLayout) findViewById(R.id.myScreen);
         mText = (TextView) findViewById(R.id.textRangeView);
         RangedBeacon.setSampleExpirationMilliseconds(500);
@@ -72,7 +79,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
                         //logToDisplay("The first beacon " + firstBeacon.toString() + " is about " + firstBeacon.getDistance() + " meters away.");
 
                         if( firstBeacon.getDistance() < 1  ) {
-                                changeToGreen();
+                            changeToGreen();
                         }
 
                         else {
@@ -96,7 +103,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
         runOnUiThread(new Runnable() {
             public void run() {
                 TextView textView = (TextView) RangingActivity.this.findViewById(R.id.textRangeView);
-                textView.setText(line+"\n");
+                textView.setText(customer.getCustomerName() + ":" + line+"\n");
             }
         });
     }
