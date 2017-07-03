@@ -21,7 +21,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     private RegionBootstrap regionBootstrap;
     private BackgroundPowerSaver backgroundPowerSaver;
     private boolean haveDetectedBeaconsSinceBoot = false;
-    private MonitoringActivity monitoringActivity = null;
+    private LoginActivity loginActivity = null;
 
 
     public void onCreate() {
@@ -65,7 +65,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
 
             // The very first time since boot that we detect an beacon, we launch the
             // MainActivity
-            Intent intent = new Intent(this, MonitoringActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             // Important:  make sure to add android:launchMode="singleInstance" in the manifest
             // to keep multiple copies of this activity from getting created if the user has
@@ -73,10 +73,10 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
             this.startActivity(intent);
             haveDetectedBeaconsSinceBoot = true;
         } else {
-            if (monitoringActivity != null) {
+            if (loginActivity != null) {
                 // If the Monitoring Activity is visible, we log info about the beacons we have
                 // seen on its display
-                //monitoringActivity.logToDisplay("I see a beacon again" );
+                //loginActivity.logToDisplay("I see a beacon again" );
             } else {
                 // If we have already seen beacons before, but the monitoring activity is not in
                 // the foreground, we send a notification to the user on subsequent detections.
@@ -90,15 +90,15 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
 
     @Override
     public void didExitRegion(Region region) {
-        if (monitoringActivity != null) {
-            //monitoringActivity.logToDisplay("I no longer see a beacon.");
+        if (loginActivity != null) {
+            //loginActivity.logToDisplay("I no longer see a beacon.");
         }
     }
 
     @Override
     public void didDetermineStateForRegion(int state, Region region) {
-        if (monitoringActivity != null) {
-            //monitoringActivity.logToDisplay("I have just switched from seeing/not seeing beacons: " + state);
+        if (loginActivity != null) {
+            //loginActivity.logToDisplay("I have just switched from seeing/not seeing beacons: " + state);
         }
     }
 
@@ -110,7 +110,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
                         .setSmallIcon(R.drawable.ic_launcher);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addNextIntent(new Intent(this, MonitoringActivity.class));
+        stackBuilder.addNextIntent(new Intent(this, LoginActivity.class));
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(
                         0,
@@ -122,8 +122,8 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         notificationManager.notify(1, builder.build());
     }
 
-    public void setMonitoringActivity(MonitoringActivity activity) {
-        this.monitoringActivity = activity;
+    public void setLoginActivity(LoginActivity activity) {
+        this.loginActivity = activity;
     }
 
 }

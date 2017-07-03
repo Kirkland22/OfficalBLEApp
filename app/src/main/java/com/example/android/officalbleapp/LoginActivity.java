@@ -22,8 +22,8 @@ import org.altbeacon.beacon.BeaconManager;
  * @author dyoung
  * @author Matt Tyler
  */
-public class MonitoringActivity extends Activity {
-    protected static final String TAG = "MonitoringActivity";
+public class LoginActivity extends Activity {
+    protected static final String TAG = "LoginActivity";
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private static final String SEAN_USERNAME = "seankirkland";
     private static final String SEAN_PASSWORD = "password";
@@ -38,7 +38,7 @@ public class MonitoringActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_monitoring);
+        setContentView(R.layout.activity_login);
         verifyBluetooth();
         //logToDisplay("Welcome to Chase");
 
@@ -91,8 +91,8 @@ public class MonitoringActivity extends Activity {
     }
 
     public void onRangingClicked(View view) {
-        EditText eUsername = (EditText) MonitoringActivity.this.findViewById(R.id.login_username);
-        EditText ePassword = (EditText) MonitoringActivity.this.findViewById(R.id.login_password);
+        EditText eUsername = (EditText) LoginActivity.this.findViewById(R.id.login_username);
+        EditText ePassword = (EditText) LoginActivity.this.findViewById(R.id.login_password);
 
         Login(eUsername,ePassword);
         eUsername.setText("");
@@ -103,13 +103,13 @@ public class MonitoringActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-        ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(this);
+        ((BeaconReferenceApplication) this.getApplicationContext()).setLoginActivity(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(null);
+        ((BeaconReferenceApplication) this.getApplicationContext()).setLoginActivity(null);
     }
     */
     private void verifyBluetooth() {
@@ -154,7 +154,7 @@ public class MonitoringActivity extends Activity {
     public void logToDisplay(final String line) {
         runOnUiThread(new Runnable() {
             public void run() {
-                EditText editText = (EditText)MonitoringActivity.this
+                EditText editText = (EditText)LoginActivity.this
                         .findViewById(R.id.monitoringText);
                 editText.append(line+"\n");
             }
@@ -165,20 +165,22 @@ public class MonitoringActivity extends Activity {
     public void Login(EditText eUsername,  EditText ePassword) {
 
         if(eUsername.getText().toString().equals(SEAN_USERNAME) && ePassword.getText().toString().equals(SEAN_PASSWORD)) {
-            Customer Sean  = new Customer("Sean",0001,345,20,false);
+            Customer Sean  = new Customer("Sean",0001,"345",20,false);
             Intent i = new Intent();
             Bundle b = new Bundle();
 
             b.putSerializable("Customer",Sean);
             i.putExtras(b);
-            i.setClass(this,RangingActivity.class);
-            //Intent myIntent = new Intent(this, RangingActivity.class);
-            //myIntent.putExtra("Customer",Sean);
+            i.setClass(this,choiceActivity.class);
+
+            //Intent myIntent = new Intent(this, choiceActivity.class);
+            //startActivity(myIntent);
+            i.putExtra("Customer",Sean);
             startActivity(i);
         }
 
         else if(eUsername.getText().toString().equals(BRENDON_USERNAME) && ePassword.getText().toString().equals(BRENDON_PASSWORD)) {
-            Customer brendon  = new Customer("Brendon",0002,1345,-20,false);
+            Customer brendon  = new Customer("Brendon",0002,"1345",-20,false);
             Intent i = new Intent();
             Bundle b = new Bundle();
 
@@ -191,7 +193,7 @@ public class MonitoringActivity extends Activity {
         }
 
         else if(eUsername.getText().toString().equals(HOZAIFA_USERNAME) && ePassword.getText().toString().equals(HOZAIFA_PASSWORD)) {
-            Customer hozaifa  = new Customer("Hozaifa",0003,100345,20,true);
+            Customer hozaifa  = new Customer("Hozaifa",0003,"100345",20,true);
             Intent i = new Intent();
             Bundle b = new Bundle();
 

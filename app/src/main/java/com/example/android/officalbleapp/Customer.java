@@ -11,15 +11,14 @@ import java.io.Serializable;
 
 public class Customer implements Serializable{
 
-    public static Parcelable Creator;
     private String customerName;
     private int accountNumber;
-    private int accountBalance;
+    private String accountBalance;
     private int transactionAmount;
     private boolean isHighRoller;
 
 
-    public Customer(String customerName,int accountNumber,int accountBalance,int transactionAmount, boolean isHighRoller) {
+    public Customer(String customerName,int accountNumber,String accountBalance,int transactionAmount, boolean isHighRoller) {
         this.customerName = customerName;
         this.accountNumber = accountNumber;
         this.accountBalance = accountBalance;
@@ -34,6 +33,10 @@ public class Customer implements Serializable{
 
     public int getTransactionAmount() {
         return transactionAmount;
+    }
+
+    public String getAccountBalance() {
+        return accountBalance;
     }
 
     public String getCustomerName() {
