@@ -26,8 +26,8 @@ import org.altbeacon.beacon.BeaconManager;
 public class LoginActivity extends Activity {
     protected static final String TAG = "LoginActivity";
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
-    private static final String SEAN_USERNAME = "seankirkland";
-    private static final String SEAN_PASSWORD = "password";
+    private static final String SEAN_USERNAME = "s";
+    private static final String SEAN_PASSWORD = "p";
     private static final String BRENDON_USERNAME = "brendonjames";
     private static final String BRENDON_PASSWORD = "password";
     private static final String HOZAIFA_USERNAME = "hozaifaabdalla";
