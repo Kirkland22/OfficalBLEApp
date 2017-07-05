@@ -56,5 +56,10 @@ private TextView tCustomerBalance;
 
     }
 
+    public void onBranchClicked (View view) {
+        Intent intent = new Intent(choiceActivity.this, LocalBranchActivity.class);
+        startActivity(intent);
+    }
+
 
 }

@@ -43,17 +43,30 @@
         android:layout_toEndOf="@+id/balance" />
 
     <Button
-        android:id="@+id/transaction_button"
-        android:onClick="onTransactionClicked"
-        android:text="Start Transaction"
-        android:textSize="20dp"
+        android:id="@+id/branch_button"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="200dp"
         android:layout_height="100dp"
+        android:layout_below="@+id/transaction_button"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="10dp"
         android:gravity="center"
+        android:onClick="onBranchClicked"
+        android:text="Find Branch"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/transaction_button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
         android:layout_below="@+id/vestibule_button"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:gravity="center"
+        android:onClick="onTransactionClicked"
+        android:text="Start Transaction"
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/vestibule_button"

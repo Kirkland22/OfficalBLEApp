@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
 import android.view.View;
@@ -51,7 +52,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
             customer = (Customer)b.getSerializable("Customer");
         mScreen = (RelativeLayout) findViewById(R.id.myScreen);
         mText = (TextView) findViewById(R.id.textRangeView);
-        //RangedBeacon.setSampleExpirationMilliseconds(500);
+        RangedBeacon.setSampleExpirationMilliseconds(500);
 
         beaconManager.bind(this);
     }
@@ -89,18 +90,18 @@ public class RangingActivity extends Activity implements BeaconConsumer {
                         //logToDisplay("The first beacon " + firstBeacon.toString() + " is about " + firstBeacon.getDistance() + " meters away.");
                         double distance = firstBeacon.getDistance();
                         if( distance <= 1  ) {
-                            changeToGreen(distance);
-                            postData(customer.getCustomerName(),distance);
+                            changeToGreen();
+                            //postData(customer.getCustomerName(),distance);
                         }
 
                         else if (distance > 2 && distance < 4) {
-                            changeToRed(distance);
-                            postData(customer.getCustomerName(),distance);
+                            changeToRed();
+                            //postData(customer.getCustomerName(),distance);
                         }
 
                         else {
-                            changeToRed(distance);
-                            postData(customer.getCustomerName(),distance);
+                            changeToRed();
+                            //postData(customer.getCustomerName(),distance);
                         }
 
 
@@ -144,22 +145,22 @@ public class RangingActivity extends Activity implements BeaconConsumer {
     }
 
     // Changes the background and text of this Activity to Red
-    private void changeToRed(final Double d) {
+    private void changeToRed() {
         RangingActivity.this.runOnUiThread(new Runnable() {
             public void run() {
                 mScreen.setBackgroundColor(0xffff0000);
                 mText.setBackgroundColor(0xffff0000);
-                logToDisplay(d.toString());
+                logToDisplay("Locked");
     }
 });
     }
     // Changes the background and text of this Activity to Green
-        private void changeToGreen(final Double d) {
+        private void changeToGreen() {
             RangingActivity.this.runOnUiThread(new Runnable() {
                 public void run() {
                     mScreen.setBackgroundColor(0xff00ff00);
                     mText.setBackgroundColor(0xff00ff00);
-                    logToDisplay(d.toString());
+                    logToDisplay("Unlocked");
                 }
             });
 
