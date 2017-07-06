@@ -38,8 +38,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
     private static final int AT_DOOR = 0;
     private static final int CLOSE = 1;
     private static final int FAR = 2;
-    private int prevState;
-    private int currentState = 3;
+    private boolean hasNeverSentRequest = true;
     RequestQueue queue;
     RelativeLayout mScreen;
     TextView mText;
@@ -59,7 +58,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
         mScreen = (RelativeLayout) findViewById(R.id.myScreen);
         mText = (TextView) findViewById(R.id.textRangeView);
         RangedBeacon.setSampleExpirationMilliseconds(500);
-        BeaconManager.setRssiFilterImplClass(ArmaRssiFilter.class);
+        //BeaconManager.setRssiFilterImplClass(ArmaRssiFilter.class);
 
         beaconManager.bind(this);
     }
@@ -84,7 +83,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
 
     @Override
     public void onBeaconServiceConnect() {
-
+        changeToRed();
 
         beaconManager.addRangeNotifier(new RangeNotifier() {
             @Override
@@ -96,78 +95,21 @@ public class RangingActivity extends Activity implements BeaconConsumer {
                     if(firstBeacon.getId3().toInt() == 3){
                         //logToDisplay("The first beacon " + firstBeacon.toString() + " is about " + (int)firstBeacon.getDistance() + " meters away.");
                         int distance = (int)firstBeacon.getDistance();
-                        //logToDisplay("Starting");
-                        switch (distance) {
-                            //state 0
-                            case 0:
-                                if (prevState == 1) {
-                                    changeToGreen(distance);
-                                    postData(customer.getCustomerName(), AT_DOOR);
-                                    prevState = 0;
-                                    break;
-                                }
-                                break;
 
-                            //State 1
-                            case 1:
-                                if (currentState == 2) {
-                                    changeToRed(distance);
-                                    postData(customer.getCustomerName(), CLOSE);
-                                    prevState = 1;
-                                    currentState = 1;
-                                }
-                                break;
-                            //State 1
-                            case 2:
-                                if (currentState == 2) {
-                                    changeToRed(distance);
-                                    postData(customer.getCustomerName(), CLOSE);
-                                    prevState = 1;
-                                    currentState = 1;
-                                }
-                                break;
-
-                            //State 1
-                            case 3:
-                                if (currentState == 2) {
-                                    changeToRed(distance);
-                                    postData(customer.getCustomerName(), CLOSE);
-                                    prevState = 1;
-                                    currentState = 1;
-                                }
-                                break;
-
-                            case 4:
-                                if (currentState == 2) {
-                                    changeToRed(distance);
-                                    postData(customer.getCustomerName(), CLOSE);
-                                    prevState = 1;
-                                    currentState = 1;
-                                }
-                                break;
-
-                            case 5:
-                                if (currentState == 3) {
-                                    changeToRed(distance);
-                                    postData(customer.getCustomerName(), CLOSE);
-                                    prevState = 3;
-                                    currentState =2;
-                                }
-                                break;
-
-                            case 6:
-                                if (currentState == 3) {
-                                    changeToRed(distance);
-                                    postData(customer.getCustomerName(), CLOSE);
-                                    prevState = 3;
-                                    currentState = 2;
-                                }
-                                break;
-
-                            default:
-                                logToDisplay("Still looking");
-
+                        if (distance < 1 && hasNeverSentRequest == true) {
+                            changeToGreen();
+                            postData(customer.getCustomerName());
+                            hasNeverSentRequest = false;
                         }
+
+                        else if (distance < 1 && hasNeverSentRequest == false) {
+
+                            changeToGreen();
+                        }
+
+                        else
+                            changeToRed();
+
                     }
 
                 }
@@ -209,28 +151,28 @@ public class RangingActivity extends Activity implements BeaconConsumer {
     */
 
     // Changes the background and text of this Activity to Red
-    private void changeToRed(final Integer distance) {
+    private void changeToRed() {
         RangingActivity.this.runOnUiThread(new Runnable() {
             public void run() {
                 mScreen.setBackgroundColor(0xffff0000);
                 mText.setBackgroundColor(0xffff0000);
-                logToDisplay(distance.toString());
+                logToDisplay("Locked");
     }
 });
     }
     // Changes the background and text of this Activity to Green
-        private void changeToGreen(final Integer distance) {
+        private void changeToGreen() {
             RangingActivity.this.runOnUiThread(new Runnable() {
                 public void run() {
                     mScreen.setBackgroundColor(0xff00ff00);
                     mText.setBackgroundColor(0xff00ff00);
-                    logToDisplay(distance.toString());
+                    logToDisplay("Unlocked");
                 }
             });
 
     }
 
-    public void postData(final String name, final Integer integer) {
+    public void postData(final String name) {
         StringRequest sr = new StringRequest(Request.Method.POST,"http://beaconapp-abdallahozaifa.c9users.io:8080/beaconInfo", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -246,7 +188,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
             protected Map<String,String> getParams(){
                 Map<String,String> params = new HashMap<String, String>();
                 params.put("name", name);
-                params.put("rank", integer.toString());
+                //params.put("rank", integer.toString());
                 return params;
             }
 
@@ -258,8 +200,11 @@ public class RangingActivity extends Activity implements BeaconConsumer {
             }
         };
         queue.add(sr);
+        sr.setRetryPolicy(new DefaultRetryPolicy(0,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     }
+
+
 
 

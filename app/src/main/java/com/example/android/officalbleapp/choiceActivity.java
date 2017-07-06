@@ -61,5 +61,9 @@ private TextView tCustomerBalance;
         startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
 
 }

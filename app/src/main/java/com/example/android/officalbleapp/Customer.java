@@ -35,6 +35,10 @@ public class Customer implements Serializable{
         return transactionAmount;
     }
 
+    public void setAccountBalance(String accountBalance) {
+        this.accountBalance = accountBalance;
+    }
+
     public String getAccountBalance() {
         return accountBalance;
     }

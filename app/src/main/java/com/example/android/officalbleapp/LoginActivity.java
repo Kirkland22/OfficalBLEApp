@@ -28,10 +28,10 @@ public class LoginActivity extends Activity {
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private static final String SEAN_USERNAME = "s";
     private static final String SEAN_PASSWORD = "p";
-    private static final String BRENDON_USERNAME = "brendonjames";
-    private static final String BRENDON_PASSWORD = "password";
-    private static final String HOZAIFA_USERNAME = "hozaifaabdalla";
-    private static final String HOZAIFA_PASSWORD = "password";
+    private static final String BRENDON_USERNAME = "b";
+    private static final String BRENDON_PASSWORD = "p";
+    private static final String HOZAIFA_USERNAME = "h";
+    private static final String HOZAIFA_PASSWORD = "p";
     //public Customer Sean;
 
 
@@ -187,7 +187,7 @@ public class LoginActivity extends Activity {
 
             b.putSerializable("Customer",brendon);
             i.putExtras(b);
-            i.setClass(this,RangingActivity.class);
+            i.setClass(this,choiceActivity.class);
             //Intent myIntent = new Intent(this, RangingActivity.class);
             //myIntent.putExtra("Customer",Sean);
             startActivity(i);
@@ -200,7 +200,7 @@ public class LoginActivity extends Activity {
 
             b.putSerializable("Customer",hozaifa);
             i.putExtras(b);
-            i.setClass(this,RangingActivity.class);
+            i.setClass(this,choiceActivity.class);
             //Intent myIntent = new Intent(this, RangingActivity.class);
             //myIntent.putExtra("Customer",Sean);
             startActivity(i);
