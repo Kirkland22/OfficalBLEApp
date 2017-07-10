@@ -17,7 +17,7 @@ import org.altbeacon.beacon.startup.RegionBootstrap;
 import org.altbeacon.beacon.startup.BootstrapNotifier;
 
 public class BeaconReferenceApplication extends Application implements BootstrapNotifier {
-    private static final String TAG = "BeaconReferenceApp";
+    private static final String TAG = "Chase Way IoT App";
     private RegionBootstrap regionBootstrap;
     private BackgroundPowerSaver backgroundPowerSaver;
     private boolean haveDetectedBeaconsSinceBoot = false;
@@ -105,7 +105,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     private void sendNotification() {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this)
-                        .setContentTitle("Beacon Reference Application")
+                        .setContentTitle("ChaseWay IoT")
                         .setContentText("An beacon is nearby.")
                         .setSmallIcon(R.drawable.ic_launcher);
 

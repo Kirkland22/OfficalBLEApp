@@ -50,31 +50,37 @@ public class TransactionActivity extends Activity {
 
         String transactionAmount =  transactionField.getText().toString();
 
-        if (transactionAmount.isEmpty())
-        {
-            Context context = getApplicationContext();
-            CharSequence text = "Please enter an amount to withdraw";
-            int duration = Toast.LENGTH_SHORT;
+        try {
+            if (transactionAmount.isEmpty())
+            {
+                Context context = getApplicationContext();
+                CharSequence text = "Please enter an amount to withdraw";
+                int duration = Toast.LENGTH_SHORT;
 
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+
+            else if (hasEnoughMoney(transactionAmount)) {
+
+                int balance = Integer.parseInt(customer.getAccountBalance());
+                int transAmount = Integer.parseInt(transactionAmount);
+
+                postData(customer.getCustomerName(), transactionAmount);
+                completeTransaction(balance,transAmount);
+                showToast("Transaction Complete");
+                startNewActivity(choiceActivity.class);
+
+            }
+
+            else {
+                showToast("Not enough Money");
+            }
+        } catch (NumberFormatException e) {
+            showToast("Please enter a numerical amount");
         }
 
-        else if (hasEnoughMoney(transactionAmount)) {
 
-            int balance = Integer.parseInt(customer.getAccountBalance());
-            int transAmount = Integer.parseInt(transactionAmount);
-
-            postData(customer.getCustomerName(), transactionAmount);
-            completeTransaction(balance,transAmount);
-            showToast("Transaction Complete");
-            startNewActivity(choiceActivity.class);
-
-        }
-
-        else {
-            showToast("Not enough Money");
-        }
 
 
     }
