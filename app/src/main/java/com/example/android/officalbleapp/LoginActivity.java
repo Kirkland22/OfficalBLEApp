@@ -27,7 +27,7 @@ public class LoginActivity extends Activity {
     protected static final String TAG = "LoginActivity";
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private static final String SEAN_USERNAME = "sean";
-    private static final String SEAN_PASSWORD = "p";
+    private static final String SEAN_PASSWORD = "password";
     private static final String BRENDON_USERNAME = "brendon";
     private static final String BRENDON_PASSWORD = "p";
     private static final String HOZAIFA_USERNAME = "hozaifa";
