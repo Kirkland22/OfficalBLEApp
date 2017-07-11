@@ -36,6 +36,7 @@ public class LoginActivity extends Activity {
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //Log.e("Loading","Looging in");
         verifyBluetooth();
         //logToDisplay("Welcome to Chase");
 

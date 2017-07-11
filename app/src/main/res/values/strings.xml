@@ -4,5 +4,12 @@
     <string name="white">#FFFFFF</string>
     <string name="title_activity_local_branch">Map</string>
     <string name="google_maps_key"></string>
+    <string name="sign_in_button">Sign-In</string>
+    <string name="login_message_text">Login</string>
+    <string name="username_hint_text">Enter your User ID</string>
+    <string name="password_hint_text">Enter you Password</string>
+    <string name="withdrawal_button_text">Withdrawal</string>
+    <string name="withdrawal_field_hint">Enter Amount</string>
+    <string name="brendon_sign_in">Brendon was not here</string>
 
 </resources>
