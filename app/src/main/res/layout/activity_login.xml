@@ -18,7 +18,7 @@
 
     <Button
         android:id="@+id/Button01"
-        android:onClick="onRangingClicked"
+        android:onClick="onSignInClicked"
         android:text="Sign-in"
         android:textSize="30dp"
         style="@style/Widget.AppCompat.Button"

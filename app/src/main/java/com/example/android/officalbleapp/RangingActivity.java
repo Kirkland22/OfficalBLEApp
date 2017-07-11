@@ -45,20 +45,23 @@ public class RangingActivity extends Activity implements BeaconConsumer {
     private BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
     Customer customer;
 
-    // changes
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranging);
         queue = Volley.newRequestQueue(this);
+        getSerializedObject();
 
-        Bundle b = this.getIntent().getExtras();
-        if (b != null)
-            customer = (Customer)b.getSerializable("Customer");
         mScreen = (RelativeLayout) findViewById(R.id.myScreen);
         mText = (TextView) findViewById(R.id.textRangeView);
+
+        /*Changes the sampling rate of Beacon:
+        Faster Sampling = less accurate measurement
+        Slower Sampling = more accurate measurement
+         */
         RangedBeacon.setSampleExpirationMilliseconds(500);
-        //BeaconManager.setRssiFilterImplClass(ArmaRssiFilter.class);
+
 
         beaconManager.bind(this);
     }
@@ -150,7 +153,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
     }
     */
 
-    // Changes the background and text of this Activity to Red
+    // Changes the background and text of this Activity to Red while changing the screen text to "Locked"
     private void changeToRed() {
         RangingActivity.this.runOnUiThread(new Runnable() {
             public void run() {
@@ -160,8 +163,9 @@ public class RangingActivity extends Activity implements BeaconConsumer {
     }
 });
     }
-    // Changes the background and text of this Activity to Green
-        private void changeToGreen() {
+
+    // Changes the background and text of this Activity to Green while changing the screen text to "Unlocked"
+    private void changeToGreen() {
             RangingActivity.this.runOnUiThread(new Runnable() {
                 public void run() {
                     mScreen.setBackgroundColor(0xff00ff00);
@@ -172,7 +176,8 @@ public class RangingActivity extends Activity implements BeaconConsumer {
 
     }
 
-    public void postData(final String name) {
+    //Sends the name to server for personalized greetings. Server: /beaconInfo
+    private void postData(final String name) {
         StringRequest sr = new StringRequest(Request.Method.POST,"http://beaconapp-abdallahozaifa.c9users.io:8080/beaconInfo", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -201,6 +206,14 @@ public class RangingActivity extends Activity implements BeaconConsumer {
         };
         queue.add(sr);
         sr.setRetryPolicy(new DefaultRetryPolicy(0,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    }
+
+    // Receiving the serialized object passed in from previous intent.
+    private void getSerializedObject() {
+        Bundle b = this.getIntent().getExtras();
+        if (b != null)
+            customer = (Customer)b.getSerializable("Customer");
+
     }
 
     }

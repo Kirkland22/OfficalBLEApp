@@ -18,21 +18,17 @@ import android.widget.Toast;
 
 import org.altbeacon.beacon.BeaconManager;
 
-/**
- *
- * @author dyoung
- * @author Matt Tyler
- */
+
 public class LoginActivity extends Activity {
     protected static final String TAG = "LoginActivity";
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private static final String SEAN_USERNAME = "sean";
-    private static final String SEAN_PASSWORD = "password";
+    private static final String SEAN_PASSWORD = "p";
     private static final String BRENDON_USERNAME = "brendon";
     private static final String BRENDON_PASSWORD = "p";
     private static final String HOZAIFA_USERNAME = "hozaifa";
     private static final String HOZAIFA_PASSWORD = "p";
-    //public Customer Sean;
+
 
 
     @Override
@@ -65,54 +61,6 @@ public class LoginActivity extends Activity {
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_REQUEST_COARSE_LOCATION: {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d(TAG, "coarse location permission granted");
-                } else {
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle("Functionality limited");
-                    builder.setMessage("Since location access has not been granted, this app will not be able to discover beacons when in the background.");
-                    builder.setPositiveButton(android.R.string.ok, null);
-                    builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                        }
-
-                    });
-                    builder.show();
-                }
-                return;
-            }
-        }
-    }
-
-    public void onRangingClicked(View view) {
-        EditText eUsername = (EditText) LoginActivity.this.findViewById(R.id.login_username);
-        EditText ePassword = (EditText) LoginActivity.this.findViewById(R.id.login_password);
-
-        Login(eUsername,ePassword);
-        eUsername.setText("");
-        ePassword.setText("");
-    }
-
-    /*
-    @Override
-    public void onResume() {
-        super.onResume();
-        ((BeaconReferenceApplication) this.getApplicationContext()).setLoginActivity(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        ((BeaconReferenceApplication) this.getApplicationContext()).setLoginActivity(null);
-    }
-    */
     private void verifyBluetooth() {
 
         try {
@@ -151,17 +99,43 @@ public class LoginActivity extends Activity {
 
     }
 
-    /*
-    public void logToDisplay(final String line) {
-        runOnUiThread(new Runnable() {
-            public void run() {
-                EditText editText = (EditText)LoginActivity.this
-                        .findViewById(R.id.monitoringText);
-                editText.append(line+"\n");
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_COARSE_LOCATION: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d(TAG, "coarse location permission granted");
+                } else {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Functionality limited");
+                    builder.setMessage("Since location access has not been granted, this app will not be able to discover beacons when in the background.");
+                    builder.setPositiveButton(android.R.string.ok, null);
+                    builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                        }
+
+                    });
+                    builder.show();
+                }
+                return;
             }
-        });
+        }
     }
-    */
+
+    public void onSignInClicked(View view) {
+        EditText eUsername = (EditText) LoginActivity.this.findViewById(R.id.login_username);
+        EditText ePassword = (EditText) LoginActivity.this.findViewById(R.id.login_password);
+
+        Login(eUsername,ePassword);
+        eUsername.setText("");
+        ePassword.setText("");
+    }
+
+
 
     public void Login(EditText eUsername,  EditText ePassword) {
 
@@ -204,21 +178,52 @@ public class LoginActivity extends Activity {
             b.putSerializable("Customer",hozaifa);
             i.putExtras(b);
             i.setClass(this,choiceActivity.class);
-            //Intent myIntent = new Intent(this, RangingActivity.class);
-            //myIntent.putExtra("Customer",Sean);
             startActivity(i);
             finish();
         }
 
         else
         {
-            Context context = getApplicationContext();
-            CharSequence text = "Username or Password incorrect";
-            int duration = Toast.LENGTH_SHORT;
+            showToast("Username or Password incorrect");
+    }
+    }
 
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
+
+    public void showToast(String toastMessage)
+    {
+        Context context = getApplicationContext();
+        CharSequence text = toastMessage;
+        int duration = Toast.LENGTH_LONG;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
+
+    /*
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((BeaconReferenceApplication) this.getApplicationContext()).setLoginActivity(this);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ((BeaconReferenceApplication) this.getApplicationContext()).setLoginActivity(null);
+    }
+    */
+
+
+    /*
+    public void logToDisplay(final String line) {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                EditText editText = (EditText)LoginActivity.this
+                        .findViewById(R.id.monitoringText);
+                editText.append(line+"\n");
+            }
+        });
+    }
+    */
 
 }

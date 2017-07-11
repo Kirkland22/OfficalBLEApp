@@ -6,7 +6,7 @@
     android:background="#1C7DC8">
 
 
-
+    <!-- Chase Logo -->
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
@@ -17,9 +17,19 @@
         android:cropToPadding="false"
         android:src="@drawable/chase_logo" />
 
+    <!-- Hello Text -->
+    <TextView
+        android:id="@+id/hello_customer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello "
+        android:textColor="#FFFFFF"
+        android:textSize="30dp"
+        android:layout_below="@+id/imageView2"
+        android:layout_alignStart="@+id/balance"
+        android:layout_marginTop="23dp" />
 
-
-
+    <!-- Balance Text -->
     <TextView
         android:id="@+id/balance"
         android:layout_width="wrap_content"
@@ -31,6 +41,20 @@
         android:layout_alignBaseline="@+id/customer_balance"
         android:layout_alignBottom="@+id/customer_balance"
         android:layout_alignStart="@+id/vestibule_button" />
+
+    <!-- Customer Name Text -->
+    <TextView
+        android:id="@+id/customer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp"
+        android:layout_alignBaseline="@+id/hello_customer"
+        android:layout_alignBottom="@+id/hello_customer"
+        android:layout_toEndOf="@+id/hello_customer" />
+
+    <!-- Customer Balance Text -->
     <TextView
         android:id="@+id/customer_balance"
         android:layout_width="wrap_content"
@@ -42,44 +66,7 @@
         android:layout_below="@+id/customer_name"
         android:layout_toEndOf="@+id/balance" />
 
-    <Button
-        android:id="@+id/branch_button"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/transaction_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:gravity="center"
-        android:onClick="onBranchClicked"
-        android:text="Find Branch"
-        android:textSize="20dp" />
-
-    <Button
-        android:id="@+id/log_out"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:gravity="center"
-        android:onClick="onLogoutClicked"
-        android:text="Log Out"
-        android:textSize="20dp"
-        android:layout_below="@+id/branch_button"
-        android:layout_alignStart="@+id/branch_button" />
-
-    <Button
-        android:id="@+id/transaction_button"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/vestibule_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:gravity="center"
-        android:onClick="onTransactionClicked"
-        android:text="Start Transaction"
-        android:textSize="20dp" />
-
+    <!-- Vestibule button -->
     <Button
         android:id="@+id/vestibule_button"
         style="@style/Widget.AppCompat.Button"
@@ -94,27 +81,53 @@
         android:layout_below="@+id/customer_balance"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:id="@+id/hello_customer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello "
-        android:textColor="#FFFFFF"
-        android:textSize="30dp"
-        android:layout_below="@+id/imageView2"
-        android:layout_alignStart="@+id/balance"
-        android:layout_marginTop="23dp" />
-
-    <TextView
-        android:id="@+id/customer_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <!-- Transaction button -->
+    <Button
+        android:id="@+id/transaction_button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/vestibule_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
         android:gravity="center"
-        android:textColor="#FFFFFF"
-        android:textSize="30dp"
-        android:layout_alignBaseline="@+id/hello_customer"
-        android:layout_alignBottom="@+id/hello_customer"
-        android:layout_toEndOf="@+id/hello_customer" />
+        android:onClick="onTransactionClicked"
+        android:text="ATM Transaction"
+        android:textSize="20dp" />
+
+    <!-- Request Service -->
+    <Button
+        android:id="@+id/branch_button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/transaction_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:elevation="0dp"
+        android:gravity="center"
+        android:onClick="onBranchClicked"
+        android:text="Request Service"
+        android:textSize="20dp" />
+
+    <!-- Logout button -->
+    <Button
+        android:id="@+id/log_out"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:onClick="onLogoutClicked"
+        android:text="Log Out"
+        android:textSize="20dp"
+        android:layout_below="@+id/branch_button"
+        android:layout_alignStart="@+id/branch_button" />
+
+
+
+
+
+
 
 
 
