@@ -172,7 +172,7 @@ public class LoginActivity extends Activity {
         }
 
         else if(eUsername.getText().toString().equals(HOZAIFA_USERNAME) && ePassword.getText().toString().equals(HOZAIFA_PASSWORD)) {
-            Customer hozaifa  = new Customer("Hozaifa Adballa",0003,"100345",20,true);
+            Customer hozaifa  = new Customer("Hozaifa Abdalla",0003,"100345",20,true);
             Intent i = new Intent();
             Bundle b = new Bundle();
 
