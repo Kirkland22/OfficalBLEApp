@@ -56,6 +56,8 @@ public class RangingActivity extends Activity implements BeaconConsumer {
         mScreen = (RelativeLayout) findViewById(R.id.myScreen);
         mText = (TextView) findViewById(R.id.textRangeView);
 
+        beaconManager.bind(this);
+
         /*Changes the sampling rate of Beacon:
         Faster Sampling = less accurate measurement
         Slower Sampling = more accurate measurement
@@ -63,7 +65,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
         RangedBeacon.setSampleExpirationMilliseconds(500);
 
 
-        beaconManager.bind(this);
+
     }
 
     @Override
@@ -87,6 +89,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
     @Override
     public void onBeaconServiceConnect() {
         changeToRed();
+        //Log.e("idk","starting");
 
         beaconManager.addRangeNotifier(new RangeNotifier() {
             @Override
@@ -98,6 +101,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
                     if(firstBeacon.getId3().toInt() == 3){
                         //logToDisplay("The first beacon " + firstBeacon.toString() + " is about " + (int)firstBeacon.getDistance() + " meters away.");
                         int distance = (int)firstBeacon.getDistance();
+                        //logToDisplay(((Integer)distance).toString());
 
                         if (distance < 1 && hasNeverSentRequest == true) {
                             changeToGreen();

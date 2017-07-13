@@ -1,21 +1,27 @@
 package com.example.android.officalbleapp;
 
-import android.app.Activity;
-import android.app.Notification;
+
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
-import android.nfc.Tag;
+import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.JsonReader;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
+
+import android.support.v4.widget.DrawerLayout;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+
+import android.content.res.Configuration;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,32 +42,39 @@ import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.service.RangedBeacon;
 import org.json.JSONObject;
 
-import java.io.StringReader;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class choiceActivity extends Activity implements BeaconConsumer {
+public class navigationTest extends AppCompatActivity implements BeaconConsumer {
+    private ListView mDrawerList;
+    private DrawerLayout mDrawerLayout;
+    private ArrayAdapter<String> mAdapter;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private String mActivityTitle;
+
+    private BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
     private Customer customer;
     private TextView tCustomerName;
     private TextView tCustomerBalance;
     RequestQueue queue;
     private boolean hasNeverBeenInQueue = true;
-    private BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        queue = Volley.newRequestQueue(this);
+        setContentView(R.layout.activity_navigation_test);
         getSerializedObject();
-        setContentView(R.layout.activity_choice);
-        // Display passed in customer data
+        mDrawerList = (ListView)findViewById(R.id.navList);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mActivityTitle = getTitle().toString();
+
         tCustomerName = (TextView) findViewById(R.id.customer_name);
         tCustomerBalance = (TextView) findViewById(R.id.customer_balance);
         tCustomerName.setText(customer.getCustomerName());
         tCustomerBalance.setText(customer.getAccountBalance());
-
-        queue = Volley.newRequestQueue(this);
-
 
         /*Changes the sampling rate of Beacon:
         Faster Sampling = less accurate measurement
@@ -69,7 +82,121 @@ public class choiceActivity extends Activity implements BeaconConsumer {
          */
         RangedBeacon.setSampleExpirationMilliseconds(500);
 
+        addDrawerItems();
+        setupDrawer();
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+    }
+
+    private void addDrawerItems() {
+        String[] osArray = { "Unlock Vestibule", "ATM Transaction", "Request Service", "Log out"};
+        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        mDrawerList.setAdapter(mAdapter);
+
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position == 0 ) {
+                    startIntent();
+                }
+
+                    else if(position == 1) {
+                    Intent i1 = new Intent();
+                    Bundle b1 = new Bundle();
+
+                    b1.putSerializable("Customer", customer);
+                    i1.putExtras(b1);
+                    i1.setClass(parent.getContext(), TransactionActivity.class);
+
+                    i1.putExtra("Customer", customer);
+                    startActivity(i1);
+                }
+
+
+                else if (position == 2) {
+
+                    startRanging();
+                }
+
+
+                else if (position == 3) {
+                    Intent i3 = new Intent();
+                    i3.setClass(parent.getContext(), LoginActivity.class);
+                    startActivity(i3);
+                    showToast("You are now logged out");
+                    finish();
+                }
+
+
+
+
+            }
+        });
+    }
+
+    private void setupDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("Navigation!");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle(mActivityTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.navigation_test, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            //Toast.makeText(navigationTest.this, "Settings", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        // Activate the navigation drawer toggle
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -118,51 +245,6 @@ public class choiceActivity extends Activity implements BeaconConsumer {
         } catch (RemoteException e) {   }
     }
 
-
-    public void onVestibuleClicked(View view) {
-        Intent i = new Intent();
-        Bundle b = new Bundle();
-
-        b.putSerializable("Customer",customer);
-        i.putExtras(b);
-        i.setClass(this,RangingActivity.class);
-
-        i.putExtra("Customer",customer);
-        startActivity(i);
-
-    }
-
-    public void onTransactionClicked(View view) {
-        Intent i = new Intent();
-        Bundle b = new Bundle();
-
-        b.putSerializable("Customer",customer);
-        i.putExtras(b);
-        i.setClass(this,TransactionActivity.class);
-
-        i.putExtra("Customer",customer);
-        startActivity(i);
-        finish();
-
-    }
-
-    public void onBranchClicked (View view) {
-
-        beaconManager.bind(this);
-
-
-
-    }
-
-    public void onLogoutClicked(View view) {
-        Intent i = new Intent();
-        i.setClass(this,LoginActivity.class);
-        startActivity(i);
-        showToast("You are now logged out");
-        finish();
-
-
-    }
 
     public void showToast(String toastMessage) {
         Context context = getApplicationContext();
@@ -246,6 +328,18 @@ public class choiceActivity extends Activity implements BeaconConsumer {
 
     }
 
+
+    private void startIntent() {
+        Intent i = new Intent();
+        Bundle b = new Bundle();
+
+        b.putSerializable("Customer", customer);
+        i.putExtras(b);
+        i.setClass(this, RangingActivity.class);
+        i.putExtra("Customer", customer);
+        startActivity(i);
+
+    }
     private void getSerializedObject() {
         Bundle b = this.getIntent().getExtras();
         if (b != null)
@@ -253,5 +347,7 @@ public class choiceActivity extends Activity implements BeaconConsumer {
 
     }
 
-
+    private void startRanging() {
+        beaconManager.bind(this);
+    }
 }

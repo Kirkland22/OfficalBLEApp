@@ -69,7 +69,7 @@ public class TransactionActivity extends Activity {
                 postData(customer.getCustomerName(), transactionAmount);
                 completeTransaction(balance,transAmount);
                 showToast("Transaction Complete");
-                startNewActivity(choiceActivity.class);
+                startNewActivity(navigationTest.class);
 
             }
 

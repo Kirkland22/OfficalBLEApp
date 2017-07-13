@@ -141,13 +141,13 @@ public class LoginActivity extends Activity {
     public void Login(EditText eUsername,  EditText ePassword) {
 
         if(eUsername.getText().toString().equals(SEAN_USERNAME) && ePassword.getText().toString().equals(SEAN_PASSWORD)) {
-            Customer Sean  = new Customer("Sean",0001,"345",20,false);
+            Customer Sean  = new Customer("Sean Kirkland",0001,"345",20,false);
             Intent i = new Intent();
             Bundle b = new Bundle();
 
             b.putSerializable("Customer",Sean);
             i.putExtras(b);
-            i.setClass(this,choiceActivity.class);
+            i.setClass(this,navigationTest.class);
 
             //Intent myIntent = new Intent(this, choiceActivity.class);
             //startActivity(myIntent);
@@ -157,13 +157,13 @@ public class LoginActivity extends Activity {
         }
 
         else if(eUsername.getText().toString().equals(BRENDON_USERNAME) && ePassword.getText().toString().equals(BRENDON_PASSWORD)) {
-            Customer brendon  = new Customer("Brendon",0002,"1345",-20,false);
+            Customer brendon  = new Customer("Brendon James",0002,"1345",-20,false);
             Intent i = new Intent();
             Bundle b = new Bundle();
 
             b.putSerializable("Customer",brendon);
             i.putExtras(b);
-            i.setClass(this,choiceActivity.class);
+            i.setClass(this,navigationTest.class);
             //Intent myIntent = new Intent(this, RangingActivity.class);
             //myIntent.putExtra("Customer",Sean);
             startActivity(i);
@@ -172,13 +172,13 @@ public class LoginActivity extends Activity {
         }
 
         else if(eUsername.getText().toString().equals(HOZAIFA_USERNAME) && ePassword.getText().toString().equals(HOZAIFA_PASSWORD)) {
-            Customer hozaifa  = new Customer("Hozaifa",0003,"100345",20,true);
+            Customer hozaifa  = new Customer("Hozaifa Adballa",0003,"100345",20,true);
             Intent i = new Intent();
             Bundle b = new Bundle();
 
             b.putSerializable("Customer",hozaifa);
             i.putExtras(b);
-            i.setClass(this,choiceActivity.class);
+            i.setClass(this,navigationTest.class);
             startActivity(i);
             finish();
         }

@@ -11,5 +11,17 @@
     <string name="withdrawal_button_text">Withdrawal</string>
     <string name="withdrawal_field_hint">Enter Amount</string>
     <string name="brendon_sign_in">Brendon was not here</string>
+    <string name="title_activity_navigation_test">navigationTest</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Settings</string>
 
 </resources>

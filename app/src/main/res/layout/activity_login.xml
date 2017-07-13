@@ -15,6 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
             android:cropToPadding="false"
             android:src="@drawable/philadelphia_skyline" />
@@ -28,7 +29,7 @@
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/blank_box_login"
+            android:background="@drawable/blank_box_login_tablet"
             android:padding="10dp"
             android:textColor="#ffffff"
             android:layout_marginBottom="142dp"
@@ -40,14 +41,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="62dp"
-            android:src="@drawable/chase_logo_empty_background" />
 
     </RelativeLayout>
 
@@ -55,40 +48,52 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <EditText
             android:id="@+id/login_username"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="269dp"
+            android:layout_width="500dp"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="389dp"
             android:ems="10"
             android:hint="@string/username_hint_text"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/login_password" />
+            android:textSize="40sp" />
 
 
         <EditText
             android:id="@+id/login_password"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_width="500dp"
+            android:layout_height="75dp"
+            android:layout_alignStart="@+id/login_username"
+            android:layout_alignTop="@+id/login_username"
+            android:layout_marginTop="75dp"
             android:ems="10"
             android:hint="@string/password_hint_text"
-            android:layout_marginTop="50dp"
-            android:layout_alignTop="@+id/login_username"
-            android:layout_centerHorizontal="true" />
+            android:textSize="40sp" />
 
         <Button
             android:id="@+id/Button01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/login_button"
-            android:layout_alignTop="@+id/login_password"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="51dp"
+            android:layout_alignStart="@+id/login_password"
+            android:layout_below="@+id/login_password"
+            android:layout_marginTop="26dp"
+            android:background="@drawable/login_button_tablet"
+            android:onClick="onSignInClicked"
             android:text="Log on"
             android:textColor="#FFFFFF"
-            android:onClick="onSignInClicked"/>
-    </RelativeLayout>
+            android:textSize="20sp" />
 
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/chase_logo_empty_background"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="23dp" />
+    </RelativeLayout>
 
 
 </FrameLayout>
