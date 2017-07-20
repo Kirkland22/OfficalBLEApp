@@ -50,40 +50,29 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/login_username"
+            android:id="@+id/create_username"
             android:layout_width="500dp"
             android:layout_height="75dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="389dp"
             android:ems="10"
-            android:hint="@string/username_hint_text"
+            android:hint="@string/enter_name_hint_text"
             android:textSize="40sp" />
 
-
-        <EditText
-            android:id="@+id/login_password"
-            android:layout_width="500dp"
-            android:layout_height="75dp"
-            android:layout_alignStart="@+id/login_username"
-            android:layout_alignTop="@+id/login_username"
-            android:layout_marginTop="75dp"
-            android:ems="10"
-            android:hint="@string/password_hint_text"
-            android:textSize="40sp" />
 
         <Button
             android:id="@+id/Button01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/login_password"
-            android:layout_below="@+id/login_password"
-            android:layout_marginTop="26dp"
             android:background="@drawable/login_button_tablet"
             android:onClick="onSignInClicked"
             android:text="Log in"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:layout_marginBottom="33dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/balance_spinner" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -93,7 +82,26 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="23dp" />
+
+        <Spinner
+            android:id="@+id/balance_spinner"
+            android:layout_width="500dp"
+            android:layout_height="75dp"
+            android:layout_below="@+id/language_spinner"
+            android:layout_alignStart="@+id/language_spinner"
+            android:layout_marginTop="34dp" />
+
+        <Spinner
+            android:id="@+id/language_spinner"
+            android:layout_width="500dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="108dp"
+            android:layout_alignTop="@+id/create_username"
+            android:layout_alignStart="@+id/create_username" />
     </RelativeLayout>
 
 
 </FrameLayout>
+
+
+

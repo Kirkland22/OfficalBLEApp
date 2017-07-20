@@ -12,32 +12,25 @@ import java.io.Serializable;
 public class Customer implements Serializable{
 
     private String customerName;
-    private int accountNumber;
     private String accountBalance;
-    private int transactionAmount;
-    private boolean isHighRoller;
+    private String language;
 
 
-    public Customer(String customerName,int accountNumber,String accountBalance,int transactionAmount, boolean isHighRoller) {
+    public Customer(String customerName,String accountBalance,String language) {
         this.customerName = customerName;
-        this.accountNumber = accountNumber;
         this.accountBalance = accountBalance;
-        this.transactionAmount = transactionAmount;
-        this.isHighRoller = isHighRoller;
+        this.language = language;
+
     }
 
 
-    public int getAccountNumber() {
-
-        return accountNumber;
-    }
-
-    public int getTransactionAmount() {
-        return transactionAmount;
-    }
 
     public void setAccountBalance(String accountBalance) {
         this.accountBalance = accountBalance;
+    }
+
+    public String getLanguage() {
+        return language;
     }
 
     public String getAccountBalance() {
@@ -48,9 +41,5 @@ public class Customer implements Serializable{
         return customerName;
     }
 
-    @Override
-    public String toString() {
-        return "Name: " + customerName + "\n" + "Account Number: " + accountNumber + "\n";
-    }
 
 }

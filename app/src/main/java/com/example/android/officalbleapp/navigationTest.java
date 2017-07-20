@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -123,7 +122,7 @@ public class navigationTest extends AppCompatActivity implements BeaconConsumer 
 
                 else if (position == 3) {
                     Intent i3 = new Intent();
-                    i3.setClass(parent.getContext(), LoginActivity.class);
+                    i3.setClass(parent.getContext(), CreateCustomerActivity.class);
                     startActivity(i3);
                     showToast("You are now logged out");
                     finish();
@@ -230,8 +229,8 @@ public class navigationTest extends AppCompatActivity implements BeaconConsumer 
                     Beacon firstBeacon = beacons.iterator().next();
                     Log.i("Beacon ID3", "Beacon Minor: " + firstBeacon.getId3());
                     if(firstBeacon.getId3().toInt() == 3 && hasNeverBeenInQueue){
-                        Integer account = customer.getAccountNumber();
-                        postData(customer.getCustomerName(),account.toString());
+                        //Integer account = customer.getAccountNumber();
+                        //postData(customer.getCustomerName(),account.toString());
                         hasNeverBeenInQueue = false;
                     }
 

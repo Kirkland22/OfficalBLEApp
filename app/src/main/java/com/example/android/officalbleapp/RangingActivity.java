@@ -105,7 +105,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
 
                         if (distance < 1 && hasNeverSentRequest == true) {
                             changeToGreen();
-                            postData(customer.getCustomerName());
+                            postData(customer.getCustomerName(),customer.getAccountBalance(),customer.getLanguage());
                             hasNeverSentRequest = false;
                         }
 
@@ -181,8 +181,8 @@ public class RangingActivity extends Activity implements BeaconConsumer {
     }
 
     //Sends the name to server for personalized greetings. Server: /beaconInfo
-    private void postData(final String name) {
-        StringRequest sr = new StringRequest(Request.Method.POST,"http://beaconapp-abdallahozaifa.c9users.io:8080/beaconInfo", new Response.Listener<String>() {
+    private void postData(final String name,final String balance,final String languages) {
+        StringRequest sr = new StringRequest(Request.Method.POST,"http://beaconapp-abdallahozaifa.c9users.io:8080/promotion", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -197,6 +197,8 @@ public class RangingActivity extends Activity implements BeaconConsumer {
             protected Map<String,String> getParams(){
                 Map<String,String> params = new HashMap<String, String>();
                 params.put("name", name);
+                params.put("balance", balance);
+                params.put("languages", languages);
                 //params.put("rank", integer.toString());
                 return params;
             }

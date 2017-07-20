@@ -12,21 +12,24 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.altbeacon.beacon.BeaconManager;
 
 
-public class LoginActivity extends Activity {
-    protected static final String TAG = "LoginActivity";
+public class CreateCustomerActivity extends Activity  {
+    protected static final String TAG = "CreateCustomerActivity";
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
-    private static final String SEAN_USERNAME = "sean";
-    private static final String SEAN_PASSWORD = "p";
-    private static final String BRENDON_USERNAME = "brendon";
-    private static final String BRENDON_PASSWORD = "p";
-    private static final String HOZAIFA_USERNAME = "hozaifa";
-    private static final String HOZAIFA_PASSWORD = "p";
+    private String customerName;
+    private String customerBalance;
+    private String customerLanguage;
+    private Spinner language_spinner;
+    private Spinner balance_spinner;
+    private EditText username;
 
 
 
@@ -34,10 +37,10 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        //Log.e("Loading","Looging in");
+        setContentView(R.layout.activity_create_customer);
+        username = (EditText) this.findViewById(R.id.create_username);
+        setUpSpinners();
         verifyBluetooth();
-        //logToDisplay("Welcome to Chase");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // Android M Permission check
@@ -127,65 +130,29 @@ public class LoginActivity extends Activity {
     }
 
     public void onSignInClicked(View view) {
-        EditText eUsername = (EditText) LoginActivity.this.findViewById(R.id.login_username);
-        EditText ePassword = (EditText) LoginActivity.this.findViewById(R.id.login_password);
-
-        Login(eUsername,ePassword);
-        eUsername.setText("");
-        ePassword.setText("");
-    }
 
 
+        if (username.getText().toString().equals("")) {
+            showToast("Enter Name");
+        }
 
-    public void Login(EditText eUsername,  EditText ePassword) {
-
-        if(eUsername.getText().toString().equals(SEAN_USERNAME) && ePassword.getText().toString().equals(SEAN_PASSWORD)) {
-            Customer Sean  = new Customer("Sean Kirkland",0001,"345",20,false);
+        else {
+            customerName = username.getText().toString();
+            customerBalance = balance_spinner.getSelectedItem().toString();
+            customerLanguage = language_spinner.getSelectedItem().toString();
+            Customer customer  = new Customer(customerName,customerBalance,customerBalance);
             Intent i = new Intent();
             Bundle b = new Bundle();
-
-            b.putSerializable("Customer",Sean);
+            b.putSerializable("Customer",customer);
             i.putExtras(b);
             i.setClass(this,choiceActivity.class);
 
-            //Intent myIntent = new Intent(this, choiceActivity.class);
-            //startActivity(myIntent);
-            i.putExtra("Customer",Sean);
             startActivity(i);
             finish();
         }
 
-        else if(eUsername.getText().toString().equals(BRENDON_USERNAME) && ePassword.getText().toString().equals(BRENDON_PASSWORD)) {
-            Customer brendon  = new Customer("Brendon James",0002,"1345",-20,false);
-            Intent i = new Intent();
-            Bundle b = new Bundle();
 
-            b.putSerializable("Customer",brendon);
-            i.putExtras(b);
-            i.setClass(this,choiceActivity.class);
-            //Intent myIntent = new Intent(this, RangingActivity.class);
-            //myIntent.putExtra("Customer",Sean);
-            startActivity(i);
-            finish();
 
-        }
-
-        else if(eUsername.getText().toString().equals(HOZAIFA_USERNAME) && ePassword.getText().toString().equals(HOZAIFA_PASSWORD)) {
-            Customer hozaifa  = new Customer("Hozaifa Abdalla",0003,"100345",20,true);
-            Intent i = new Intent();
-            Bundle b = new Bundle();
-
-            b.putSerializable("Customer",hozaifa);
-            i.putExtras(b);
-            i.setClass(this,choiceActivity.class);
-            startActivity(i);
-            finish();
-        }
-
-        else
-        {
-            showToast("Username or Password incorrect");
-    }
     }
 
 
@@ -199,17 +166,34 @@ public class LoginActivity extends Activity {
         toast.show();
     }
 
+    public void setUpSpinners() {
+        language_spinner = (Spinner) findViewById(R.id.language_spinner);
+        balance_spinner = (Spinner) findViewById(R.id.balance_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.languages_array, android.R.layout.simple_gallery_item);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                R.array.balance_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        language_spinner.setAdapter(adapter);
+        balance_spinner.setAdapter(adapter2);
+    }
+
+
     /*
     @Override
     public void onResume() {
         super.onResume();
-        ((BeaconReferenceApplication) this.getApplicationContext()).setLoginActivity(this);
+        ((BeaconReferenceApplication) this.getApplicationContext()).setCreateCustomerActivity(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        ((BeaconReferenceApplication) this.getApplicationContext()).setLoginActivity(null);
+        ((BeaconReferenceApplication) this.getApplicationContext()).setCreateCustomerActivity(null);
     }
     */
 
@@ -218,7 +202,7 @@ public class LoginActivity extends Activity {
     public void logToDisplay(final String line) {
         runOnUiThread(new Runnable() {
             public void run() {
-                EditText editText = (EditText)LoginActivity.this
+                EditText editText = (EditText)CreateCustomerActivity.this
                         .findViewById(R.id.monitoringText);
                 editText.append(line+"\n");
             }

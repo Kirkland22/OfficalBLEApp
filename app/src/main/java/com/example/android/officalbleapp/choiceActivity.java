@@ -1,21 +1,14 @@
 package com.example.android.officalbleapp;
 
 import android.app.Activity;
-import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.RemoteException;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +29,6 @@ import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.service.RangedBeacon;
 import org.json.JSONObject;
 
-import java.io.StringReader;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -103,8 +95,7 @@ public class choiceActivity extends Activity implements BeaconConsumer {
                     Beacon firstBeacon = beacons.iterator().next();
                     Log.i("Beacon ID3", "Beacon Minor: " + firstBeacon.getId3());
                     if(firstBeacon.getId3().toInt() == 3 && hasNeverBeenInQueue){
-                        Integer account = customer.getAccountNumber();
-                        postData(customer.getCustomerName(),account.toString());
+                        postData(customer.getCustomerName());
                         hasNeverBeenInQueue = false;
                     }
 
@@ -156,7 +147,7 @@ public class choiceActivity extends Activity implements BeaconConsumer {
 
     public void onLogoutClicked(View view) {
         Intent i = new Intent();
-        i.setClass(this,LoginActivity.class);
+        i.setClass(this,CreateCustomerActivity.class);
         startActivity(i);
         showToast("You are now logged out");
         finish();
@@ -174,7 +165,7 @@ public class choiceActivity extends Activity implements BeaconConsumer {
     }
 
     //Sends the customer information to server for queue. Server: /queue
-    private void postData(final String name, final String accNum) {
+    private void postData(final String name) {
         StringRequest sr = new StringRequest(Request.Method.POST,"http://beaconapp-abdallahozaifa.c9users.io:8080/queue", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -191,7 +182,6 @@ public class choiceActivity extends Activity implements BeaconConsumer {
             protected Map<String,String> getParams(){
                 Map<String,String> params = new HashMap<String, String>();
                 params.put("name", name);
-                params.put("account", accNum);
                 return params;
             }
 

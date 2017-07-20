@@ -66,10 +66,10 @@ public class TransactionActivity extends Activity {
                 int balance = Integer.parseInt(customer.getAccountBalance());
                 int transAmount = Integer.parseInt(transactionAmount);
 
-                postData(customer.getCustomerName(), transactionAmount);
+                postData(customer.getCustomerName(), customer.getLanguage(),transactionAmount);
                 completeTransaction(balance,transAmount);
                 showToast("Transaction Complete");
-                startNewActivity(navigationTest.class);
+                startNewActivity(choiceActivity.class);
 
             }
 
@@ -123,10 +123,10 @@ public class TransactionActivity extends Activity {
     }
 
 
-    public void postData(final String name, final String amount) {
+    public void postData(final String name, final String languages, final String amount) {
 
 
-        StringRequest sr = new StringRequest(Request.Method.POST, "http://beaconapp-abdallahozaifa.c9users.io:8080/beaconInfo", new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST, "http://beaconapp-abdallahozaifa.c9users.io:8080/transaction", new Response.Listener<String>() {
 
             @Override
                 public void onResponse(String response) {
@@ -144,6 +144,7 @@ public class TransactionActivity extends Activity {
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("name", name);
+                    params.put("languages", languages);
                     params.put("amount", amount);
                     return params;
                 }
