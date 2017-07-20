@@ -18,15 +18,9 @@ import android.widget.Toast;
 import org.altbeacon.beacon.BeaconManager;
 
 
-public class LoginActivity extends Activity {
-    protected static final String TAG = "LoginActivity";
+public class CreateUserActivity extends Activity {
+    protected static final String TAG = "CreateUserActivity";
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
-    private static final String SEAN_USERNAME = "sean";
-    private static final String SEAN_PASSWORD = "p";
-    private static final String BRENDON_USERNAME = "brendon";
-    private static final String BRENDON_PASSWORD = "p";
-    private static final String HOZAIFA_USERNAME = "hozaifa";
-    private static final String HOZAIFA_PASSWORD = "p";
 
 
 
@@ -34,10 +28,10 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_create_user);
         //Log.e("Loading","Looging in");
         verifyBluetooth();
-        //logToDisplay("Welcome to Chase");
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // Android M Permission check
@@ -127,67 +121,8 @@ public class LoginActivity extends Activity {
     }
 
     public void onSignInClicked(View view) {
-        EditText eUsername = (EditText) LoginActivity.this.findViewById(R.id.login_username);
-        EditText ePassword = (EditText) LoginActivity.this.findViewById(R.id.login_password);
 
-        Login(eUsername,ePassword);
-        eUsername.setText("");
-        ePassword.setText("");
     }
-
-
-
-    public void Login(EditText eUsername,  EditText ePassword) {
-
-        if(eUsername.getText().toString().equals(SEAN_USERNAME) && ePassword.getText().toString().equals(SEAN_PASSWORD)) {
-            Customer Sean  = new Customer("Sean Kirkland",0001,"345",20,false);
-            Intent i = new Intent();
-            Bundle b = new Bundle();
-
-            b.putSerializable("Customer",Sean);
-            i.putExtras(b);
-            i.setClass(this,choiceActivity.class);
-
-            //Intent myIntent = new Intent(this, choiceActivity.class);
-            //startActivity(myIntent);
-            i.putExtra("Customer",Sean);
-            startActivity(i);
-            finish();
-        }
-
-        else if(eUsername.getText().toString().equals(BRENDON_USERNAME) && ePassword.getText().toString().equals(BRENDON_PASSWORD)) {
-            Customer brendon  = new Customer("Brendon James",0002,"1345",-20,false);
-            Intent i = new Intent();
-            Bundle b = new Bundle();
-
-            b.putSerializable("Customer",brendon);
-            i.putExtras(b);
-            i.setClass(this,choiceActivity.class);
-            //Intent myIntent = new Intent(this, RangingActivity.class);
-            //myIntent.putExtra("Customer",Sean);
-            startActivity(i);
-            finish();
-
-        }
-
-        else if(eUsername.getText().toString().equals(HOZAIFA_USERNAME) && ePassword.getText().toString().equals(HOZAIFA_PASSWORD)) {
-            Customer hozaifa  = new Customer("Hozaifa Abdalla",0003,"100345",20,true);
-            Intent i = new Intent();
-            Bundle b = new Bundle();
-
-            b.putSerializable("Customer",hozaifa);
-            i.putExtras(b);
-            i.setClass(this,choiceActivity.class);
-            startActivity(i);
-            finish();
-        }
-
-        else
-        {
-            showToast("Username or Password incorrect");
-    }
-    }
-
 
     public void showToast(String toastMessage)
     {

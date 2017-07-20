@@ -61,7 +61,11 @@
             android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".navigationTest"
-            android:label="@string/title_activity_navigation_test"></activity>
+            android:label="@string/title_activity_navigation_test" />
+        <activity
+            android:name=".CreateUserActivity"
+            android:label="@string/title_activity_create_user"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>
