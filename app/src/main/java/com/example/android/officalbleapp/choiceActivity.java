@@ -35,6 +35,7 @@ import java.util.Map;
 
 public class choiceActivity extends Activity implements BeaconConsumer {
     private Customer customer;
+    private static int BEACON_NUMBER = 3;
     private TextView tCustomerName;
     private TextView tCustomerBalance;
     RequestQueue queue;
@@ -94,7 +95,7 @@ public class choiceActivity extends Activity implements BeaconConsumer {
                     //EditText editText = (EditText)RangingActivity.this.findViewById(R.id.rangingText);
                     Beacon firstBeacon = beacons.iterator().next();
                     Log.i("Beacon ID3", "Beacon Minor: " + firstBeacon.getId3());
-                    if(firstBeacon.getId3().toInt() == 3 && hasNeverBeenInQueue){
+                    if(firstBeacon.getId3().toInt() == BEACON_NUMBER && hasNeverBeenInQueue){
                         postData(customer.getCustomerName());
                         hasNeverBeenInQueue = false;
                     }

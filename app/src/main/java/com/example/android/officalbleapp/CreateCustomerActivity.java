@@ -140,7 +140,7 @@ public class CreateCustomerActivity extends Activity  {
             customerName = username.getText().toString();
             customerBalance = balance_spinner.getSelectedItem().toString();
             customerLanguage = language_spinner.getSelectedItem().toString();
-            Customer customer  = new Customer(customerName,customerBalance,customerBalance);
+            Customer customer  = new Customer(customerName,customerBalance,customerLanguage);
             Intent i = new Intent();
             Bundle b = new Bundle();
             b.putSerializable("Customer",customer);

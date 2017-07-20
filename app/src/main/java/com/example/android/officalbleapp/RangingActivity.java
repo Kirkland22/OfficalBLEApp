@@ -33,11 +33,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class RangingActivity extends Activity implements BeaconConsumer {
     protected static final String TAG = "RangingActivity";
     private static final int AT_DOOR = 0;
     private static final int CLOSE = 1;
     private static final int FAR = 2;
+    private static int BEACON_NUMBER = 3;
     private boolean hasNeverSentRequest = true;
     RequestQueue queue;
     RelativeLayout mScreen;
@@ -98,7 +100,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
                     //EditText editText = (EditText)RangingActivity.this.findViewById(R.id.rangingText);
                     Beacon firstBeacon = beacons.iterator().next();
                     Log.i("Beacon ID3", "Beacon Minor: " + firstBeacon.getId3());
-                    if(firstBeacon.getId3().toInt() == 3){
+                    if(firstBeacon.getId3().toInt() == BEACON_NUMBER){
                         //logToDisplay("The first beacon " + firstBeacon.toString() + " is about " + (int)firstBeacon.getDistance() + " meters away.");
                         int distance = (int)firstBeacon.getDistance();
                         //logToDisplay(((Integer)distance).toString());
