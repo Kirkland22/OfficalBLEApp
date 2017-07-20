@@ -231,7 +231,7 @@ public class navigationTest extends AppCompatActivity implements BeaconConsumer 
                     if(firstBeacon.getId3().toInt() == 3 && hasNeverBeenInQueue){
                         //Integer account = customer.getAccountNumber();
                         //postData(customer.getCustomerName(),account.toString());
-                        hasNeverBeenInQueue = false;
+                        hasNeverBeenInQueue = false ;
                     }
 
                 }

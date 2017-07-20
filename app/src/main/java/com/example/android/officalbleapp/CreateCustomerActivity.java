@@ -178,7 +178,7 @@ public class CreateCustomerActivity extends Activity  {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        language_spinner.setAdapter(adapter);
+        language_spinner.setAdapter(adapter );
         balance_spinner.setAdapter(adapter2);
     }
 

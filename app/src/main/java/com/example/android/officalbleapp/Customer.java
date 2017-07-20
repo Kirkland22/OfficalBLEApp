@@ -19,7 +19,7 @@ public class Customer implements Serializable{
     public Customer(String customerName,String accountBalance,String language) {
         this.customerName = customerName;
         this.accountBalance = accountBalance;
-        this.language = language;
+        this.language = language ;
 
     }
 

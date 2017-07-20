@@ -53,7 +53,7 @@ public class choiceActivity extends Activity implements BeaconConsumer {
         tCustomerName.setText(customer.getCustomerName());
         tCustomerBalance.setText(customer.getAccountBalance());
 
-        queue = Volley.newRequestQueue(this);
+        queue = Volley.newRequestQueue(this );
 
 
         /*Changes the sampling rate of Beacon:

@@ -25,7 +25,7 @@ import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
-public class TransactionActivity extends Activity {
+public class TransactionActivity extends Activity  {
     private Customer customer;
     RequestQueue queue;
 

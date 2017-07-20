@@ -30,7 +30,7 @@ public class LocalBranchActivity extends FragmentActivity implements OnMapReadyC
         LocationListener {
 
         private GoogleMap mMap;
-        GoogleApiClient mGoogleApiClient;
+        GoogleApiClient mGoogleApiClient ;
         Location mLastLocation;
         Marker mCurrLocationMarker;
         LocationRequest mLocationRequest;

@@ -61,7 +61,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         // matching a Region (defined above) are first seen.
         Log.d(TAG, "did enter region.");
         if (!haveDetectedBeaconsSinceBoot) {
-            Log.d(TAG, "auto launching MainActivity");
+            Log.d(TAG, "auto launching MainActivity ");
 
             // The very first time since boot that we detect an beacon, we launch the
             // MainActivity
