@@ -25,7 +25,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/chase_logo_empty_background"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp" />
 
     <!-- Hello Text -->
     <TextView
@@ -87,10 +88,9 @@
         android:onClick="onVestibuleClicked"
         android:text="Unlock Vestibule"
         android:textSize="20dp"
+        android:layout_marginTop="29dp"
         android:layout_below="@+id/balance"
-        android:layout_toStartOf="@+id/transaction_button"
-        android:layout_marginEnd="35dp"
-        android:layout_marginTop="22dp" />
+        android:layout_toStartOf="@+id/transaction_button" />
 
     <!-- Transaction button -->
     <Button
@@ -106,7 +106,7 @@
         android:textSize="20dp"
         android:layout_alignBaseline="@+id/vestibule_button"
         android:layout_alignBottom="@+id/vestibule_button"
-        android:layout_alignStart="@+id/log_out" />
+        android:layout_alignEnd="@+id/imageView4" />
 
     <!-- Request Service -->
     <Button
@@ -118,10 +118,10 @@
         android:elevation="0dp"
         android:gravity="center"
         android:onClick="onBranchClicked"
-        android:text="Request Service"
+        android:text="Place in Queue"
         android:textSize="20sp"
         android:layout_below="@+id/transaction_button"
-        android:layout_alignStart="@+id/vestibule_button" />
+        android:layout_toStartOf="@+id/transaction_button" />
 
     <!-- Logout button -->
     <Button
@@ -132,7 +132,6 @@
         android:onClick="onLogoutClicked"
         android:text="Log Out"
         android:textSize="20dp"
-        android:layout_marginEnd="66dp"
         android:layout_below="@+id/transaction_button"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignStart="@+id/transaction_button" />
 </RelativeLayout>

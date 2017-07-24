@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/login_button_tablet"
             android:onClick="onSignInClicked"
-            android:text="Log in"
+            android:text="Create Account"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:layout_marginBottom="33dp"

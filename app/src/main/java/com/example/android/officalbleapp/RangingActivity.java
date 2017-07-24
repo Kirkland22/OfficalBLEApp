@@ -1,19 +1,15 @@
 package com.example.android.officalbleapp;
 
 import android.app.Activity;
-import android.app.NotificationManager;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
+
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AppCompatActivity;
+
 import android.util.Log;
-import android.widget.EditText;
-import android.view.View;
+
 import android.widget.RelativeLayout ;
 import android.widget.TextView;
+
 import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -23,12 +19,8 @@ import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
-import org.altbeacon.beacon.service.ArmaRssiFilter;
 import org.altbeacon.beacon.service.RangedBeacon;
 
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,9 +28,6 @@ import java.util.Map;
 
 public class RangingActivity extends Activity implements BeaconConsumer {
     protected static final String TAG = "RangingActivity";
-    private static final int AT_DOOR = 0;
-    private static final int CLOSE = 1;
-    private static final int FAR = 2;
     private static int BEACON_NUMBER = 3;
     private boolean hasNeverSentRequest = true;
     RequestQueue queue;
