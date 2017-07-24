@@ -36,8 +36,7 @@ import java.util.Map;
 public class choiceActivity extends Activity implements BeaconConsumer {
     private Customer customer;
     private static int BEACON_NUMBER = 3;
-    private TextView tCustomerName;
-    private TextView tCustomerBalance;
+
     RequestQueue queue;
     private boolean hasNeverBeenInQueue = true;
     private BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
@@ -47,12 +46,7 @@ public class choiceActivity extends Activity implements BeaconConsumer {
         super.onCreate(savedInstanceState);
         getSerializedObject();
         setContentView(R.layout.activity_choice);
-        // Display passed in customer data
-        tCustomerName = (TextView) findViewById(R.id.customer_name);
-        tCustomerBalance = (TextView) findViewById(R.id.customer_balance);
-        tCustomerName.setText(customer.getCustomerName());
-        tCustomerBalance.setText(customer.getAccountBalance());
-
+        setStartScreen();
         queue = Volley.newRequestQueue(this );
 
 
@@ -109,7 +103,6 @@ public class choiceActivity extends Activity implements BeaconConsumer {
             beaconManager.startRangingBeaconsInRegion(new Region("44444444-4444-4444-4444-44444444BEAC", null, null, null));
         } catch (RemoteException e) {   }
     }
-
 
     public void onVestibuleClicked(View view) {
         Intent i = new Intent();
@@ -241,6 +234,27 @@ public class choiceActivity extends Activity implements BeaconConsumer {
         Bundle b = this.getIntent().getExtras();
         if (b != null)
             customer = (Customer)b.getSerializable("Customer");
+
+    }
+
+    private void setStartScreen() {
+
+        TextView tCustomerGreeting = (TextView) findViewById(R.id.hello_customer);
+        TextView tCustomerName = (TextView) findViewById(R.id.customer_name);
+        TextView tCustomerBalance = (TextView) findViewById(R.id.customer_balance);
+
+        tCustomerName.setText(customer.getCustomerName());
+        tCustomerBalance.setText(customer.getAccountBalance());
+
+        String language = customer.getLanguage();
+
+        if (language.equals("English"))
+            tCustomerGreeting.setText("Hello  ");
+
+        else if (language.equals("French"))
+            tCustomerGreeting.setText("Bonjour  ");
+        else
+            tCustomerGreeting.setText("Hola  ");
 
     }
 
