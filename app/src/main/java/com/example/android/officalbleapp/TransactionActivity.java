@@ -41,7 +41,7 @@ public class TransactionActivity extends Activity implements BeaconConsumer {
     private static int DENOMINATION_MIN = 10;
     private static int WITHDRAWAL_LIMIT = 10000;
     private boolean isWithinBeaconRange = false;
-    private static int BEACON_NUMBER = 3;
+    private static int BEACON_NUMBER = 1;
     private BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
 
     @Override
@@ -77,6 +77,8 @@ public class TransactionActivity extends Activity implements BeaconConsumer {
         if (beaconManager.isBound(this)) beaconManager.setBackgroundMode(false);
     }
 
+
+    // Beacon search and actions taken here.
     @Override
     public void onBeaconServiceConnect() {
 
@@ -158,6 +160,8 @@ public class TransactionActivity extends Activity implements BeaconConsumer {
 
 
     }
+
+
 
     private boolean hasEnoughMoney(String amount) {
 

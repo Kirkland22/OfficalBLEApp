@@ -59,9 +59,6 @@
             android:name=".LocalBranchActivity"
             android:label="@string/title_activity_local_branch"
             android:theme="@style/Theme.AppCompat" />
-        <activity
-            android:name=".navigationTest"
-            android:label="@string/title_activity_navigation_test" />
     </application>
 
 </manifest>

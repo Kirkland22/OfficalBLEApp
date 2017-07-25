@@ -124,7 +124,7 @@ public class CreateCustomerActivity extends Activity  {
                     });
                     builder.show();
                 }
-                return;
+
             }
         }
     }
@@ -159,10 +159,9 @@ public class CreateCustomerActivity extends Activity  {
     public void showToast(String toastMessage)
     {
         Context context = getApplicationContext();
-        CharSequence text = toastMessage;
         int duration = Toast.LENGTH_LONG;
 
-        Toast toast = Toast.makeText(context, text, duration);
+        Toast toast = Toast.makeText(context, toastMessage, duration);
         toast.show();
     }
 
@@ -183,31 +182,6 @@ public class CreateCustomerActivity extends Activity  {
     }
 
 
-    /*
-    @Override
-    public void onResume() {
-        super.onResume();
-        ((BeaconReferenceApplication) this.getApplicationContext()).setCreateCustomerActivity(this);
-    }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        ((BeaconReferenceApplication) this.getApplicationContext()).setCreateCustomerActivity(null);
-    }
-    */
-
-
-    /*
-    public void logToDisplay(final String line) {
-        runOnUiThread(new Runnable() {
-            public void run() {
-                EditText editText = (EditText)CreateCustomerActivity.this
-                        .findViewById(R.id.monitoringText);
-                editText.append(line+"\n");
-            }
-        });
-    }
-    */
 
 }

@@ -28,7 +28,8 @@ import java.util.Map;
 
 public class RangingActivity extends Activity implements BeaconConsumer {
     protected static final String TAG = "RangingActivity";
-    private static int BEACON_NUMBER = 3;
+    private static int DOOR_BEACON_NUMBER = 3;
+    private static int ATM_BEACON_NUMBER = 1;
     private boolean hasNeverSentRequest = true;
     RequestQueue queue;
     RelativeLayout mScreen;
@@ -77,37 +78,39 @@ public class RangingActivity extends Activity implements BeaconConsumer {
         if (beaconManager.isBound(this)) beaconManager.setBackgroundMode(false);
     }
 
+
+   // Beacon search and actions taken here.
     @Override
     public void onBeaconServiceConnect() {
         changeToRed();
-        //Log.e("idk","starting");
+
 
         beaconManager.addRangeNotifier(new RangeNotifier() {
             @Override
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
                 if (beacons.size() > 0) {
-                    //EditText editText = (EditText)RangingActivity.this.findViewById(R.id.rangingText);
+
                     Beacon firstBeacon = beacons.iterator().next();
                     Log.i("Beacon ID3", "Beacon Minor: " + firstBeacon.getId3());
-                    if(firstBeacon.getId3().toInt() == BEACON_NUMBER){
-                        //logToDisplay("The first beacon " + firstBeacon.toString() + " is about " + (int)firstBeacon.getDistance() + " meters away.");
-                        int distance = (int)firstBeacon.getDistance();
-                        //logToDisplay(((Integer)distance).toString());
 
-                        if (distance < 1 && hasNeverSentRequest == true) {
-                            changeToGreen();
-                            postData(customer.getCustomerName(),customer.getAccountBalance(),customer.getLanguage());
-                            hasNeverSentRequest = false;
-                        }
+                    if(firstBeacon.getId3().toInt() == DOOR_BEACON_NUMBER) {
+                        int distance = (int) firstBeacon.getDistance();
 
-                        else if (distance < 1 && hasNeverSentRequest == false) {
-
+                        if (distance < 1) {
                             changeToGreen();
                         }
-
                         else
                             changeToRed();
+                    }
 
+                    if(firstBeacon.getId3().toInt() == ATM_BEACON_NUMBER){
+
+                        int distance = (int)firstBeacon.getDistance();
+
+                        if (distance < 1 && hasNeverSentRequest) {
+                            postData(customer.getCustomerName(),customer.getAccountBalance(),customer.getLanguage());
+                            hasNeverSentRequest = false;
+                            }
                     }
 
                 }
@@ -171,8 +174,9 @@ public class RangingActivity extends Activity implements BeaconConsumer {
 
     }
 
-    //Sends the name to server for personalized greetings. Server: /beaconInfo
+    //Sends the name to server for personalized greetings. Server: /promotion
     private void postData(final String name,final String balance,final String languages) {
+
         StringRequest sr = new StringRequest(Request.Method.POST,"http://beaconapp-abdallahozaifa.c9users.io:8080/promotion", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
