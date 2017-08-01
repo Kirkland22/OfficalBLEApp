@@ -28,8 +28,11 @@ import java.util.Map;
 
 public class RangingActivity extends Activity implements BeaconConsumer {
     protected static final String TAG = "RangingActivity";
+
+    // TODO: 8/1/17 CHANGE MINOR VALUES OF BEACON TO WHAT YOU WANT TO USE
     private static int DOOR_BEACON_NUMBER = 3;
     private static int ATM_BEACON_NUMBER = 1;
+
     private boolean hasNeverSentRequest = true;
     RequestQueue queue;
     RelativeLayout mScreen;
@@ -119,6 +122,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
         });
 
         try {
+            // TODO: 8/1/17 CHANGE UUID TO WHAT YOU WANT TO USE
             beaconManager.startRangingBeaconsInRegion(new Region("44444444-4444-4444-4444-44444444BEAC", null, null, null));
         } catch (RemoteException e) {   }
     }
@@ -177,6 +181,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
     //Sends the name to server for personalized greetings. Server: /promotion
     private void postData(final String name,final String balance,final String languages) {
 
+        // TODO: 8/1/17 CHANGE URL TO THE URL OF THE SERVER YOU WANT TO USE
         StringRequest sr = new StringRequest(Request.Method.POST,"http://beaconapp-abdallahozaifa.c9users.io:8080/promotion", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

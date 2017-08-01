@@ -35,13 +35,23 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         // layout expression for other beacon types, do a web search for "setBeaconLayout"
         // including the quotes.
         //
+
+        // THIS FINDS iBEACONS
         beaconManager.getBeaconParsers().clear();
         beaconManager.getBeaconParsers().add(new BeaconParser().
                 setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
 
+
+        // TODO: 8/1/17 PLACE NEW BEACON FORMAT HERE
+        /*beaconManager.getBeaconParsers().clear();
+        beaconManager.getBeaconParsers().add(new BeaconParser().
+                setBeaconLayout("   PLACE THE FORMAT HERE   "));*/
+
         Log.d(TAG, "setting up background monitoring for beacons and power saving");
         // wake up the app when a beacon is seen
-        Region region = new Region("44444444-4444-4444-4444-44444444BEAC",
+
+        // TODO: 8/1/17 CHANGE THE UUID TO YOUR UUID
+        Region region = new Region("44444444-4444-4444-4444-44444444BEAC ",
                 null, null, null);
         regionBootstrap = new RegionBootstrap(this, region);
 
@@ -102,6 +112,8 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         }
     }
 
+
+    // TODO: 8/1/17 CHANGE CONTENT TITLE
     private void sendNotification() {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this)

@@ -40,7 +40,10 @@ public class TransactionActivity extends Activity implements BeaconConsumer {
 
     private static int DENOMINATION_MIN = 10;
     private static int WITHDRAWAL_LIMIT = 10000;
+    
     private boolean isWithinBeaconRange = false;
+
+    // TODO: 8/1/17 CHANGE THE MINOR TO THE BEACON YOU WANT TO USE. 
     private static int BEACON_NUMBER = 1;
     private BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
 
@@ -108,6 +111,7 @@ public class TransactionActivity extends Activity implements BeaconConsumer {
         });
 
         try {
+            // TODO: 8/1/17 CHANGE UUID TO THE ONE YOU WANT TO USE 
             beaconManager.startRangingBeaconsInRegion(new Region("44444444-4444-4444-4444-44444444BEAC", null, null, null));
         } catch (RemoteException e) {   }
     }
@@ -218,7 +222,7 @@ public class TransactionActivity extends Activity implements BeaconConsumer {
 
     public void sendToServer(final String name, final String languages, final String amount) {
 
-
+        // TODO: 8/1/17 CHANGE THE URL TO THE SERVER YOU WANT TO USE 
         StringRequest sr = new StringRequest(Request.Method.POST, "http://beaconapp-abdallahozaifa.c9users.io:8080/transaction", new Response.Listener<String>() {
 
             @Override

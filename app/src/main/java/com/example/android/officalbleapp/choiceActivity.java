@@ -35,6 +35,7 @@ import java.util.Map;
 
 public class choiceActivity extends Activity implements BeaconConsumer {
     private Customer customer;
+    // TODO: 8/1/17 CHANGE TO THE MINOR VALUE OF THE BEACON YOU WANT TO USE.
     private static int BEACON_NUMBER = 3;
 
     RequestQueue queue;
@@ -65,7 +66,6 @@ public class choiceActivity extends Activity implements BeaconConsumer {
         beaconManager.unbind(this);
     }
 
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -77,7 +77,6 @@ public class choiceActivity extends Activity implements BeaconConsumer {
         super.onResume();
         if (beaconManager.isBound(this)) beaconManager.setBackgroundMode(false);
     }
-
 
     @Override
     public void onBeaconServiceConnect() {
@@ -100,6 +99,7 @@ public class choiceActivity extends Activity implements BeaconConsumer {
         });
 
         try {
+            // TODO: 8/1/17 CHANGE UUID
             beaconManager.startRangingBeaconsInRegion(new Region("44444444-4444-4444-4444-44444444BEAC", null, null, null));
         } catch (RemoteException e) {   }
     }
@@ -151,15 +151,14 @@ public class choiceActivity extends Activity implements BeaconConsumer {
 
     public void showToast(String toastMessage) {
         Context context = getApplicationContext();
-        CharSequence text = toastMessage;
         int duration = Toast.LENGTH_LONG;
-
-        Toast toast = Toast.makeText(context, text, duration);
+        Toast toast = Toast.makeText(context, toastMessage, duration);
         toast.show();
     }
 
     //Sends the customer information to server for queue. Server: /queue
     private void postData(final String name) {
+        // TODO: 8/1/17 CHANGE SERVER URL TO YOUR URL YOU WANT TO USE
         StringRequest sr = new StringRequest(Request.Method.POST,"http://beaconapp-abdallahozaifa.c9users.io:8080/queue", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
