@@ -52,4 +52,12 @@
         android:layout_marginTop="72dp"
         android:maxLength="5"/>
 
+    <TextView
+        android:id="@+id/test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Button01"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="73dp"/>
+
 </RelativeLayout>

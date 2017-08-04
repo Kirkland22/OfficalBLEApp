@@ -106,7 +106,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
                             changeToRed();
                     }
 
-                    if(firstBeacon.getId3().toInt() == ATM_BEACON_NUMBER){
+                    else if(firstBeacon.getId3().toInt() == ATM_BEACON_NUMBER){
 
                         int distance = (int)firstBeacon.getDistance();
 

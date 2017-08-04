@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -37,6 +38,8 @@ import static android.content.ContentValues.TAG;
 public class TransactionActivity extends Activity implements BeaconConsumer {
     private Customer customer;
     RequestQueue queue;
+    private int transAmount;
+    private int balance;
 
     private static int DENOMINATION_MIN = 10;
     private static int WITHDRAWAL_LIMIT = 10000;
@@ -55,7 +58,7 @@ public class TransactionActivity extends Activity implements BeaconConsumer {
         beaconManager.bind(this);
 
         getSerializedObject();
-        RangedBeacon.setSampleExpirationMilliseconds(500);
+        //RangedBeacon.setSampleExpirationMilliseconds(500);
 
 
 
@@ -93,10 +96,10 @@ public class TransactionActivity extends Activity implements BeaconConsumer {
                     Beacon firstBeacon = beacons.iterator().next();
                     Log.i("Beacon ID", "Beacon Minor: " + firstBeacon.getId3());
                     if(firstBeacon.getId3().toInt() == BEACON_NUMBER){
-                        int distance = (int)firstBeacon.getDistance();
-                        //logToDisplay(((Integer)distance).toString());
+                        Integer distance = (int)firstBeacon.getDistance();
+                        logToDisplay(distance.toString());
 
-                        if (distance < 1 ) {
+                        if (distance < 2 ) {
                            isWithinBeaconRange = true;
                         }
 
@@ -146,14 +149,11 @@ public class TransactionActivity extends Activity implements BeaconConsumer {
 
             else if (hasEnoughMoney(transactionAmount) && isWithinBeaconRange ) {
 
-                int balance = Integer.parseInt(customer.getAccountBalance());
-                int transAmount = Integer.parseInt(transactionAmount);
+                balance = Integer.parseInt(customer.getAccountBalance());
+                transAmount = Integer.parseInt(transactionAmount);
 
                 sendToServer(customer.getCustomerName(), customer.getLanguage(), transactionAmount);
-                completeTransaction(balance, transAmount);
-                showToast("Transaction Complete");
-                startNewActivity(choiceActivity.class);
-                finish();
+
 
             }
 
@@ -228,6 +228,12 @@ public class TransactionActivity extends Activity implements BeaconConsumer {
             @Override
                 public void onResponse(String response) {
 
+                Log.e("ON RESPONSE" , response);
+                completeTransaction(balance, transAmount);
+                showToast("Transaction Complete");
+                startNewActivity(choiceActivity.class);
+                finish();
+
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -285,6 +291,15 @@ public class TransactionActivity extends Activity implements BeaconConsumer {
         if (b != null)
             customer = (Customer)b.getSerializable("Customer");
 
+    }
+
+    private void logToDisplay(final String line) {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                TextView textView = (TextView) TransactionActivity.this.findViewById(R.id.test);
+                textView.setText(line);
+            }
+        });
     }
 
 
