@@ -17,6 +17,7 @@ import org.altbeacon.beacon.startup.RegionBootstrap;
 import org.altbeacon.beacon.startup.BootstrapNotifier;
 
 public class BeaconReferenceApplication extends Application implements BootstrapNotifier {
+
     private static final String TAG = "Chase Way IoT App";
     private RegionBootstrap regionBootstrap;
     private BackgroundPowerSaver backgroundPowerSaver;
@@ -134,8 +135,5 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         notificationManager.notify(1, builder.build());
     }
 
-    public void setCreateCustomerActivity(CreateCustomerActivity activity) {
-        this.createCustomerActivity = activity;
-    }
 
 }
